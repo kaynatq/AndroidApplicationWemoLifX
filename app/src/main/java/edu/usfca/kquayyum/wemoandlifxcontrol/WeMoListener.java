@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Listener extends AsyncTask implements Runnable{
+public class WeMoListener extends AsyncTask implements Runnable{
     Boolean listening = true;
     Set<String> endpoints;
 

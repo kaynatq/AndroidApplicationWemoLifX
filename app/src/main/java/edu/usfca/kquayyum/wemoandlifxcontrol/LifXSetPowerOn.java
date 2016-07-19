@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by kaynat on 7/18/16.
  */
-public class LifXSetPower extends AsyncTask<String, Void, String> {
+public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {

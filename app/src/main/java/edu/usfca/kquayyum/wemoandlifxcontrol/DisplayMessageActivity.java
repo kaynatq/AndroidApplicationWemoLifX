@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import edu.usfca.kquayyum.wemoandlifxcontrol.R;
-
 public class DisplayMessageActivity extends AppCompatActivity {
 
     @Override
@@ -29,7 +27,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null)
                         .show();
             }
@@ -48,9 +46,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle app bar item clicks here. The app bar
-        // automatically handles clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

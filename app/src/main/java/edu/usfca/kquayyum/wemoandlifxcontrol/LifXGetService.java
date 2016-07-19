@@ -18,7 +18,7 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
             String host = "192.168.1.254";
             int port = 56700;
 
-            String messageString = "310000340000000000000000000000000000000000000000000000000000000066000000005555FFFFFFFFAC0D00040000";
+            String messageString = "310000340000000000000000000000000000000000000000000000000000000002000000005555FFFFFFFFAC0D00040000";
             byte[] message = messageString.getBytes();
             // Get the internet address of the specified host
             InetAddress address = InetAddress.getByName(host);

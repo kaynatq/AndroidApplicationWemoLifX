@@ -10,30 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import edu.usfca.kquayyum.wemoandlifxcontrol.R;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.DatagramPacket;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
 import java.net.MulticastSocket;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-import lifx.java.android.client.LFXClient;
-import lifx.java.android.entities.LFXTypes;
 import lifx.java.android.network_context.LFXNetworkContext;
 
 
@@ -147,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             while (numTry > 0) {
                 MulticastSocket socket = new MulticastSocket(null);
                 try {
-                    socket.bind(new InetSocketAddress("192.168.1.90", 10001));
+                    socket.bind(new InetSocketAddress("192.168.1.90", 1901));
                     StringBuilder packet = new StringBuilder();
                     packet.append("M-SEARCH * HTTP/1.1\r\n");
                     packet.append("HOST: 239.255.255.250:1900\r\n");
@@ -176,78 +163,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private class WemoControl extends AsyncTask<String, Void, String> {
 
-        public String wemoTurnOn() {
-            URL url = null;
-            try {
-                url = new URL("http://192.168.1.92:49153/upnp/control/bridge1");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return "not executed";
-            }
-            HttpURLConnection connection = null;
-            try {
-                connection = (HttpURLConnection) url.openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "not executed";
-            }
-            try {
-                connection.setRequestMethod("POST");
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-                return "not executed";
-            }
-            connection.setRequestProperty("Accept-Charset", "UTF-8");
-            connection.setRequestProperty("Content-Type", "text/xml");
-            connection.setRequestProperty("SOAPACTION", "\"urn:Belkin:service:bridge:1#SetDeviceStatus\"");
-            String xml =
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                            + "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
-                            + "<s:Body>"
-                            + "<u:SetDeviceStatus xmlns:u=\"urn:Belkin:service:bridge:1\">"
-                            + "<DeviceStatusList>"
-                            + "&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;DeviceStatus&gt;&lt;IsGroupAction&gt;NO&lt;/IsGroupAction&gt;&lt;DeviceID available=&quot;YES&quot;&gt;94103EA2B277FE87&lt;/DeviceID&gt;&lt;CapabilityID&gt;10006,10008&lt;/CapabilityID&gt;&lt;CapabilityValue&gt;1,250&lt;/CapabilityValue&gt;&lt;/DeviceStatus&gt;'"
-                            + "</DeviceStatusList>"
-                            + "</u:SetDeviceStatus>"
-                            + "</s:Body>"
-                            + "</s:Envelope>";
-
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-
-
-            try {
-                OutputStream os = connection.getOutputStream();
-                os.write(xml.getBytes());
-                os.flush();
-                os.close();
-                int res = connection.getResponseCode();
-                //System.out.println(res);
-                InputStream is = connection.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    System.out.println(line);
-                }
-                connection.disconnect();
-            }
-            catch (Exception e){
-                return "not excuted";
-            }
-            return "executed";
-
-        }
-
-
-
-
-        @Override
-        protected String doInBackground(String... params) {
-            return wemoTurnOn();
-        }
-    }
     /** Called when the user clicks the wemo button */
     public void discoverWemo(View view) throws IOException, InterruptedException {
 
@@ -276,9 +192,14 @@ public class MainActivity extends AppCompatActivity {
         String message = "List of lifx devices";
 
         LFXNetworkContext localNetworkContext = null;
+        LifXClient lifXClient = new LifXClient();
+        try {
+            lifXClient.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
-        for(int i =0; i<5; i++) {
+        /*for(int i =0; i<5; i++) {
             localNetworkContext = LFXClient.getSharedInstance(this).getLocalNetworkContext();
 
             localNetworkContext.connect();
@@ -286,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
             localNetworkContext.getAllLightsCollection().setPowerState(LFXTypes.LFXPowerState.OFF);
             localNetworkContext.getAllLightsCollection().getLights().size();
-        }
+        }*/
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
 

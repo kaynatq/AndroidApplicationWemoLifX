@@ -5,11 +5,12 @@ import android.os.AsyncTask;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.TimerTask;
 
 /**
  * Created by kaynat on 7/18/16.
  */
-public class LifXClient extends AsyncTask<String, Void, String> {
+public class LifXSetColor extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
@@ -31,7 +32,6 @@ public class LifXClient extends AsyncTask<String, Void, String> {
                     address, port);
 
             dsocket.send(packet);
-            //dsocket.receive(packet);
             dsocket.close();
             System.out.println(packet);
         } catch (Exception e) {

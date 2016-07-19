@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.belkin.wemo.localsdk.WeMoSDKContext;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -173,9 +176,9 @@ public class MainActivity extends AppCompatActivity {
         Set<String> endpoints = null;
 
         //EditText editText = (EditText) findViewById(R.id.edit_message);
-        WemoControl wemoControl = new WemoControl();
+        WemoTurnOn wemoTurnOn = new WemoTurnOn();
 
-        wemoControl.execute();
+        wemoTurnOn.execute();
         message = "Wemo turned on";
         intent.putExtra(EXTRA_MESSAGE, message);
 
@@ -191,23 +194,14 @@ public class MainActivity extends AppCompatActivity {
        // EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = "List of lifx devices";
 
-        LFXNetworkContext localNetworkContext = null;
-        LifXClient lifXClient = new LifXClient();
+
+        LifXSetColor lifXSetColor = new LifXSetColor();
         try {
-            lifXClient.execute();
+            lifXSetColor.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        /*for(int i =0; i<5; i++) {
-            localNetworkContext = LFXClient.getSharedInstance(this).getLocalNetworkContext();
-
-            localNetworkContext.connect();
-
-
-            localNetworkContext.getAllLightsCollection().setPowerState(LFXTypes.LFXPowerState.OFF);
-            localNetworkContext.getAllLightsCollection().getLights().size();
-        }*/
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
 

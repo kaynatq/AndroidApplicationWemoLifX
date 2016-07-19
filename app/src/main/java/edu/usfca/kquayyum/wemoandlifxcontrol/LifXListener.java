@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 
 /**
- * Created by kaynat on 7/19/16.
+ * Listener that responds if any lifX device exist in network
  */
 public class LifXListener implements Runnable {
     Boolean listening = true;

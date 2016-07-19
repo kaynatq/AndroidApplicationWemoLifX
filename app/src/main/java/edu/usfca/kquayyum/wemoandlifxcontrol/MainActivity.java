@@ -22,7 +22,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-
+/**
+ * The start page
+ */
 public class MainActivity extends AppCompatActivity {
     private static final Logger log= Logger.getLogger( MainActivity.class.getName() );
     public final static String EXTRA_MESSAGE = "List of devices";
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         WemoTurnOn wemoTurnOn = new WemoTurnOn();
 
         wemoTurnOn.execute();
-        message = "Wemo turned on";
+        message = "Discovered devices";
         intent.putExtra(EXTRA_MESSAGE, message);
 
         startActivity(intent);

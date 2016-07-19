@@ -13,7 +13,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by kaynat on 7/18/16.
+ * Turn off wemo
  */
 public class WemoTurnOff extends AsyncTask<String, Void, String> {
 

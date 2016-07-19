@@ -14,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+/**
+ * Activity that responds to Main while testing different classes
+ */
 public class DisplayMessageActivity extends AppCompatActivity {
 
     @Override

@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.util.TimerTask;
 
 /**
- * Created by kaynat on 7/18/16.
+ * Set the color of light bulb according to your choice
  */
 public class LifXSetColor extends AsyncTask<String, Void, String> {
 

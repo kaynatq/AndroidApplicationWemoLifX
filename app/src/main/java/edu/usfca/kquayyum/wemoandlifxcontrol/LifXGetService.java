@@ -8,8 +8,10 @@ import java.net.InetAddress;
 import java.util.TimerTask;
 
 /**
- * Created by kaynat on 7/17/16.
+ * send UDP packet to network to discover lifx devices
  */
+
+
 public class LifXGetService extends AsyncTask<String, Void, String> {
 
     @Override

@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.util.TimerTask;
 
 /**
- * Created by kaynat on 7/18/16.
+ * Class to Turn on the light
  */
 public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
 
@@ -18,7 +18,7 @@ public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
             String host = "192.168.1.254";
             int port = 56700;
 
-            String messageString = "310000340000000000000000000000000000000000000000000000000000000021000000005555FFFFFFFFAC0D00040000";
+            String messageString = "31000034000000000000000000000000000000000000000000000000000000002100000000FFFFFFFFFFFFAC0D00040000";
             byte[] message = messageString.getBytes();
 
             // Get the internet address of the specified host

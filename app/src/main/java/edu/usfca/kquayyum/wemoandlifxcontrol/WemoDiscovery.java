@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by kaynat on 7/12/16.
+ * Discover wemo devices
  */
 public class WemoDiscovery extends AsyncTask<String, Void, String> {
     WeMoListener weMoListener;

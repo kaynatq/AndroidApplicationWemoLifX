@@ -5,8 +5,8 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "com.example.kaynat.myfirstapplication"
-        minSdkVersion 10
+        applicationId "edu.usfca.kquayyum.wemoandlifxcontrol"
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -26,5 +26,6 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile files('libs/WeMoSDK_1.1.jar')
     compile 'com.github.getsenic:lifx-sdk-android:0.5.12@aar'
+    compile 'com.pes.materialcolorpicker:library:1.0.+'
 
 }

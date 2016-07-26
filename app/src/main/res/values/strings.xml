@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wemo and LifX</string>
-    <string name="edit_message">Enter a message</string>
+    <string name="app_name">Welcome To Your Smart Home !!</string>
     <string name="button_wemo">Discover Wemo Devices</string>
     <string name="button_lifx">Discover LifX Devices</string>
+    <string name="wemo_list">Wemo 01</string>
+    <string name="wemo_list2">Wemo 02</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_display_message">Display</string>
+    <string name="welcome_message">Welcome to your smart home</string>
+    <string name="title_activity_display_message">Discovered Wemo Bulbs</string>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <string name="title_activity_discovered_light_bulbs_list">Discovered LifX Bulbs</string>
 </resources>

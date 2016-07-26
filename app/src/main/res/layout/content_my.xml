@@ -2,23 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@mipmap/smart_home"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_my">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_wemo"
-        android:color="#2f6699"
-        android:onClick="discoverWemo"/>
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_lifx"
-        android:color="#2f6699"
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:background="@mipmap/lifx_logo"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="50px"
         android:onClick="discoverLifX"/>
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:text="@string/button_wemo"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="350px"
+        android:textSize="50px"/>
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:onClick="discoverWemo"
+        android:layout_marginLeft="-410px"
+        android:layout_marginTop="400px"
+        android:background="@mipmap/wemo_logo"/>
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:text="@string/button_lifx"
+        android:textColor="@color/white"
+        android:textSize="50px"/>
 </LinearLayout>

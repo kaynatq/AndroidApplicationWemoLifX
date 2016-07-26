@@ -1,7 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,17 +9,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
+
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import lifx.java.android.client.LFXClient;
+import lifx.java.android.entities.LFXTypes;
+import lifx.java.android.light.LFXLight;
+import lifx.java.android.light.LFXLightCollection;
+import lifx.java.android.network_context.LFXNetworkContext;
 
 /**
  * The start page
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final Logger log= Logger.getLogger( MainActivity.class.getName() );
     public final static String EXTRA_MESSAGE = "List of devices";
     public  String message = "";
+
 
 
     @Override
@@ -46,7 +47,27 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    /*    final ColorPicker cp = new ColorPicker(MainActivity.this, 0, 0, 0);
+        cp.show();
 
+     On Click listener for the dialog, when the user select the color */
+        /*Button okColor = (Button)cp.findViewById(R.id.okColorButton);
+        okColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                *//* You can get single channel (value 0-255) *//*
+                int  selectedColorR = cp.getRed();
+                int selectedColorG = cp.getGreen();
+                int selectedColorB = cp.getBlue();
+
+                *//* Or the android RGB Color (see the android Color class reference) *//*
+                int selectedColorRGB = cp.getColor();
+
+               // cp.dismiss();
+            }
+        });
+*/
     }
 
     @Override
@@ -75,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user clicks the wemo button */
     public void discoverWemo(View view) throws IOException, InterruptedException {
 
+
         // Do something in response to button
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         WemoDiscovery wemoDiscovery = new WemoDiscovery();
@@ -84,28 +106,43 @@ public class MainActivity extends AppCompatActivity {
         WemoTurnOn wemoTurnOn = new WemoTurnOn();
 
         wemoTurnOn.execute();
-        message = "Discovered devices";
+        message = "";
         intent.putExtra(EXTRA_MESSAGE, message);
 
         startActivity(intent);
 
     }
 
+
+
+    //D0730512BE03
     /** Called when the user clicks the lifx button */
     public void discoverLifX(View view) {
 
         // Do something in response to button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        Intent intent = new Intent(this, DiscoveredLightBulbsList.class);
        // EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = "List of lifx devices";
 
+    /*    LFXNetworkContext localNetworkContext = LFXClient.getSharedInstance( this).getLocalNetworkContext();
+        localNetworkContext.connect();
+        localNetworkContext.getAllLightsCollection().setPowerState( LFXTypes.LFXPowerState.OFF);*/
 
-        LifXSetColor lifXSetColor = new LifXSetColor();
+
+
+        LifXListener lifXListener = new LifXListener();
+        lifXListener.execute();
+
+        LifXSetPowerOn lifXSetColor = new LifXSetPowerOn();
         try {
             lifXSetColor.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        lifXListener.terminate();
+        new Reminder(lifXListener, 5);
+        lifXListener.cancel(true);
+        lifXSetColor.cancel(true);
 
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

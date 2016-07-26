@@ -2,22 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.usfca.kquayyum.wemoandlifxcontrol">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="edu.usfca.kquayyum.wemoandlifxcontrol.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,16 +31,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.usfca.kquayyum.wemoandlifxcontrol.DisplayMessageActivity"
+            android:name=".DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
-            android:parentActivityName="edu.usfca.kquayyum.wemoandlifxcontrol.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.usfca.kquayyum.wemoandlifxcontrol.MainActivity"
-                />
+                android:value="edu.usfca.kquayyum.wemoandlifxcontrol.MainActivity" />
         </activity>
-
+        <activity
+            android:name=".DiscoveredLightBulbsList"
+            android:label="@string/title_activity_discovered_light_bulbs_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

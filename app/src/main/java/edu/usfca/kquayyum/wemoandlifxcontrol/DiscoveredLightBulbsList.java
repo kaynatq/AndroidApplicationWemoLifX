@@ -4,21 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.Set;
 
-/**
- * Activity that responds to Main while testing different classes
- */
-public class DisplayMessageActivity extends AppCompatActivity {
+public class DiscoveredLightBulbsList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +35,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        TextView textView = new TextView(this);
-        textView.setTextSize(20);
-        textView.setTextColor(getResources().getColor(R.color.white));
-        textView.setText(message);
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.content);
-        layout.addView(textView);
 
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -57,20 +45,19 @@ public class DisplayMessageActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    /** Called when the user clicks the wemo button */
+    public void discoverWemoBulb(View view) throws IOException, InterruptedException {
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() { }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_display_message,
-                    container, false);
-            return rootView;
-        }
+    }
+
+
+
+    //D0730512BE03
+    /** Called when the user clicks the lifx button */
+    public void discoverLifXBulb(View view) {
+
+
     }
 }

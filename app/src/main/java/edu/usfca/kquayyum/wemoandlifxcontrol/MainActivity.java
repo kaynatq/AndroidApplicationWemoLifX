@@ -9,18 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Logger;
-
-import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
-import lifx.java.android.client.LFXClient;
-import lifx.java.android.entities.LFXTypes;
-import lifx.java.android.light.LFXLight;
-import lifx.java.android.light.LFXLightCollection;
-import lifx.java.android.network_context.LFXNetworkContext;
 
 /**
  * The start page
@@ -98,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Do something in response to button
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        Intent intent = new Intent(this, DiscoverWemoActivity.class);
         WemoDiscovery wemoDiscovery = new WemoDiscovery();
         Set<String> endpoints = null;
 
@@ -120,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void discoverLifX(View view) {
 
         // Do something in response to button
-        Intent intent = new Intent(this, DiscoveredLightBulbsList.class);
+        Intent intent = new Intent(this, DiscoverLifXActivity.class);
        // EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = "List of lifx devices";
 

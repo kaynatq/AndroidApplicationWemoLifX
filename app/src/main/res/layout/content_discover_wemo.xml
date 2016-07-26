@@ -11,8 +11,8 @@
     android:id="@+id/content"
     android:background="@color/materialcolorpicker__green"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.usfca.kquayyum.wemoandlifxcontrol.DisplayMessageActivity"
-    tools:showIn="@layout/activity_display_message">
+    tools:context=".DiscoverWemoActivity"
+    tools:showIn="@layout/activity_discover_wemo">
 
     <Button
         android:layout_width="200px"
@@ -20,7 +20,7 @@
         android:background="@mipmap/belkin_wemo_light"
         android:layout_marginLeft="10px"
         android:layout_marginTop="50px"
-        android:onClick="discoverLifX"/>
+        android:onClick="discoverWemo"/>
 
     <TextView
         android:layout_width="200px"

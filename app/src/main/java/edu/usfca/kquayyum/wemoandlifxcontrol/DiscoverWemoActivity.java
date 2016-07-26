@@ -4,23 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.Set;
 
-public class DiscoveredLightBulbsList extends AppCompatActivity {
+
+/**
+ * Activity that responds to Main while testing different classes
+ */
+public class DiscoverWemoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_discover_wemo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,8 +41,17 @@ public class DiscoveredLightBulbsList extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        TextView textView = new TextView(this);
+        textView.setTextSize(20);
+        textView.setTextColor(getResources().getColor(R.color.white));
+        textView.setText(message);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.content);
+        layout.addView(textView);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -45,19 +60,11 @@ public class DiscoveredLightBulbsList extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     /** Called when the user clicks the wemo button */
-    public void discoverWemoBulb(View view) throws IOException, InterruptedException {
-
-
-
+    public void discoverWemo(View view) throws IOException, InterruptedException {
+        WemoTurnOn wemoTurnOn = new WemoTurnOn();
+        wemoTurnOn.execute();
     }
 
-
-
-    //D0730512BE03
-    /** Called when the user clicks the lifx button */
-    public void discoverLifXBulb(View view) {
-
-
-    }
 }

@@ -17,7 +17,6 @@ import java.util.TimerTask;
  */
 public class WemoDiscovery extends AsyncTask<String, Void, String> {
     WeMoListener weMoListener;
-    Long msToListen;
     Set<String> endpoints = new HashSet<>();
     private static final int LISTENER_DELAY_SECONDS = 5;
 
@@ -27,15 +26,17 @@ public class WemoDiscovery extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        weMoListener = new WeMoListener();
+        weMoListener.doInBackground(null);
+
         try {
-            return getEndpoints().toString();
+            discover();
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return null;
         }
+
+        new Reminder(weMoListener, LISTENER_DELAY_SECONDS);
+        return endpoints.toString();
     }
 
 
@@ -59,19 +60,7 @@ public class WemoDiscovery extends AsyncTask<String, Void, String> {
             }
         }
     }
-    public Set<String> getEndpoints() throws IOException, InterruptedException {
-        weMoListener = new WeMoListener();
-        weMoListener.doInBackground(null);
-        Thread listenerThread = new Thread(weMoListener);
-        listenerThread.start();
 
-        discover();
-
-        new Reminder(weMoListener, LISTENER_DELAY_SECONDS);
-
-        listenerThread.join();
-        return endpoints;
-    }
 
     private void discover() throws IOException {
         InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName("239.255.255.250"), 1900);

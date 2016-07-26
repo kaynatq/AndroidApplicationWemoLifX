@@ -11,18 +11,11 @@ import java.net.SocketTimeoutException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WeMoListener extends AsyncTask implements Runnable{
+public class WeMoListener extends AsyncTask{
     Boolean listening = true;
     Set<String> endpoints;
 
-    public void run(){
-        try {
-            startListener();
-        } catch (IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+
 
     public void terminate() {
         listening = false;
@@ -74,6 +67,12 @@ public class WeMoListener extends AsyncTask implements Runnable{
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        try {
+            startListener();
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return endpoints;
     }
 }

@@ -1,6 +1,8 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Set;
@@ -21,50 +25,26 @@ import java.util.Set;
 /**
  * Activity that responds to Main while testing different classes
  */
-public class DiscoverWemoActivity extends AppCompatActivity {
+public class DiscoverWemoActivity extends ListActivity {
+
+    static final String[] MOBILE_OS =
+            new String[] { "Android", "iOS", "WindowsMobile", "Blackberry"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discover_wemo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        TextView textView = new TextView(this);
-        textView.setTextSize(20);
-        textView.setTextColor(getResources().getColor(R.color.white));
-        textView.setText(message);
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.content);
-        layout.addView(textView);
+        setListAdapter(new LightbulbArrayAdapter(this, MOBILE_OS, R.mipmap.belkin_wemo_light, Color.GREEN));
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    protected void onListItemClick(ListView l, View v, int position, long id) {
 
-    /** Called when the user clicks the wemo button */
-    public void discoverWemo(View view) throws IOException, InterruptedException {
-        WemoTurnOn wemoTurnOn = new WemoTurnOn();
-        wemoTurnOn.execute();
+        //get selected items
+        String selectedValue = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+
     }
 
 }

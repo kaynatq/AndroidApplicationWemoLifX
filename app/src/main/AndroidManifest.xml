@@ -42,6 +42,10 @@
         <activity
             android:name=".DiscoverLifXActivity"
             android:label="@string/title_activity_discovered_light_bulbs_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LightbulbArrayAdapter"
+            android:label="@string/title_activity_lightbulb_array_adapter"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

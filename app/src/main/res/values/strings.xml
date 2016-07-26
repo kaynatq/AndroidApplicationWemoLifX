@@ -5,10 +5,12 @@
     <string name="button_lifx">Discover LifX Devices</string>
     <string name="wemo_list">Wemo 01</string>
     <string name="wemo_list2">Wemo 02</string>
+    <string name="lifx_list">LifX 01</string>
     <string name="action_settings">Settings</string>
     <string name="welcome_message">Welcome to your smart home</string>
     <string name="title_activity_display_message">Discovered Wemo Bulbs</string>
-    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <string name="title_activity_discovered_light_bulbs_list">Discovered LifX Bulbs</string>
+    <string name="title_activity_light_bulb_array_adapter">LightBulbArrayAdapter</string>
+    <string name="title_activity_lightbulb_array_adapter">LightbulbArrayAdapter</string>
 </resources>

@@ -1,58 +1,47 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
-public class DiscoverLifXActivity extends AppCompatActivity {
+public class DiscoverLifXActivity extends ListActivity {
+
+    static final String[] MOBILE_OS =
+            new String[] { "Android", "iOS", "WindowsMobile", "Blackberry"};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discover_lifx);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        setListAdapter(new LightbulbArrayAdapter(this, MOBILE_OS, R.mipmap.lifx_bulb, Color.rgb(119, 0, 255)));
 
     }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    /** Called when the user clicks the wemo button */
-    public void discoverWemoBulb(View view) throws IOException, InterruptedException {
+    protected void onListItemClick(ListView l, View v, int position, long id) {
 
-
-
-    }
-
-
-
-    //D0730512BE03
-    /** Called when the user clicks the lifx button */
-    public void discoverLifXBulb(View view) {
-
+        //get selected items
+        String selectedValue = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
 
     }
 }

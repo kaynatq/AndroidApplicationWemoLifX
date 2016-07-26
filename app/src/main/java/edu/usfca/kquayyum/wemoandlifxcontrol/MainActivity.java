@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, DiscoverWemoActivity.class);
         WemoDiscovery wemoDiscovery = new WemoDiscovery();
-        Set<String> endpoints = null;
+        wemoDiscovery.execute();
 
         //EditText editText = (EditText) findViewById(R.id.edit_message);
         WemoTurnOn wemoTurnOn = new WemoTurnOn();
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        LifXListener lifXListener = new LifXListener();
+    /*    LifXListener lifXListener = new LifXListener();
         lifXListener.execute();
 
         LifXSetPowerOn lifXSetColor = new LifXSetPowerOn();
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         lifXListener.terminate();
         new Reminder(lifXListener, 5);
         lifXListener.cancel(true);
-        lifXSetColor.cancel(true);
+        lifXSetColor.cancel(true);*/
 
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

@@ -12,6 +12,9 @@ import android.view.MenuItem;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
 /**
@@ -39,27 +42,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    /*    final ColorPicker cp = new ColorPicker(MainActivity.this, 0, 0, 0);
-        cp.show();
-
-     On Click listener for the dialog, when the user select the color */
-        /*Button okColor = (Button)cp.findViewById(R.id.okColorButton);
-        okColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                *//* You can get single channel (value 0-255) *//*
-                int  selectedColorR = cp.getRed();
-                int selectedColorG = cp.getGreen();
-                int selectedColorB = cp.getBlue();
-
-                *//* Or the android RGB Color (see the android Color class reference) *//*
-                int selectedColorRGB = cp.getColor();
-
-               // cp.dismiss();
-            }
-        });
-*/
     }
 
     @Override
@@ -86,18 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     /** Called when the user clicks the wemo button */
-    public void discoverWemo(View view) throws IOException, InterruptedException {
+    public void discoverWemo(View view) throws IOException, InterruptedException, TimeoutException, ExecutionException {
 
 
         // Do something in response to button
         Intent intent = new Intent(this, DiscoverWemoActivity.class);
+
         WemoDiscovery wemoDiscovery = new WemoDiscovery();
         wemoDiscovery.execute();
-
         //EditText editText = (EditText) findViewById(R.id.edit_message);
-        WemoTurnOn wemoTurnOn = new WemoTurnOn();
+    //    WemoTurnOn wemoTurnOn = new WemoTurnOn();
 
-        wemoTurnOn.execute();
+   //     wemoTurnOn.execute();
         message = "";
         intent.putExtra(EXTRA_MESSAGE, message);
 

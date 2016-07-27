@@ -26,7 +26,7 @@ import java.io.IOException;
 public class DiscoverLifXActivity extends ListActivity {
 
     static final String[] MOBILE_OS =
-            new String[] { "Android", "iOS", "WindowsMobile", "Blackberry"};
+            new String[] { "Lifx 01"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,7 @@ public class DiscoverLifXActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         //get selected items
-        String selectedValue = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(this, LifXBulbAction.class);
+        startActivity(intent);
     }
 }

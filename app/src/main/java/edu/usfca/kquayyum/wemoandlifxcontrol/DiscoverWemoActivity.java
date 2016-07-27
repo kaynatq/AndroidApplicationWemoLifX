@@ -28,7 +28,7 @@ import java.util.Set;
 public class DiscoverWemoActivity extends ListActivity {
 
     static final String[] MOBILE_OS =
-            new String[] { "Android", "iOS", "WindowsMobile", "Blackberry"};
+            new String[] { "Wemo 01", "Wemo 02" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

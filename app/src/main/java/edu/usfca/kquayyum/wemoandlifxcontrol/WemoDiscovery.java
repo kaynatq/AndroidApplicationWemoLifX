@@ -13,10 +13,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Discover wemo devices
+ * class to discover UPnP devices
+ * @author kaynat
+ *
  */
-public class WemoDiscovery extends AsyncTask<String, Void, String> {
-    WeMoListener weMoListener;
+public class WemoDiscovery extends AsyncTask<String, Void, String>{
+    Listener listener;
+    Long msToListen;
     Set<String> endpoints = new HashSet<>();
     private static final int LISTENER_DELAY_SECONDS = 5;
 
@@ -26,41 +29,48 @@ public class WemoDiscovery extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        weMoListener = new WeMoListener();
-        weMoListener.doInBackground(null);
-
         try {
-            discover();
+            getEndpoints();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-        new Reminder(weMoListener, LISTENER_DELAY_SECONDS);
         return endpoints.toString();
     }
-
-
 
     private class Reminder {
         Timer timer;
 
-        private Reminder(WeMoListener weMoListener, int seconds) {
+        private Reminder(Listener listener, int seconds) {
             timer = new Timer();
-            timer.schedule(new RemindTask(weMoListener), seconds*1000);
+            timer.schedule(new RemindTask(listener), seconds*1000);
         }
 
         class RemindTask extends TimerTask {
-            WeMoListener weMoListener;
-            RemindTask(WeMoListener weMoListener) {
-                this.weMoListener = weMoListener;
+            Listener listener;
+            RemindTask(Listener listener) {
+                this.listener = listener;
             }
             public void run() {
-                weMoListener.terminate();
+                listener.terminate();
                 timer.cancel(); //Terminate the timer thread
             }
         }
     }
+    public Set<String> getEndpoints() throws IOException, InterruptedException {
+        listener = new Listener();
 
+        Thread listenerThread = new Thread(listener);
+        listenerThread.start();
+
+        discover();
+
+        new Reminder(listener, LISTENER_DELAY_SECONDS);
+
+        listenerThread.join();
+        return endpoints;
+    }
 
     private void discover() throws IOException {
         InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName("239.255.255.250"), 1900);
@@ -81,8 +91,7 @@ public class WemoDiscovery extends AsyncTask<String, Void, String> {
                 System.out.println("sending discovery packet");
                 socket.send(new DatagramPacket(data, data.length, socketAddress));
             } catch (IOException e) {
-                weMoListener.terminate();
-                throw e;
+                listener.terminate();
             } finally {
                 socket.disconnect();
                 socket.close();

@@ -1,7 +1,5 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
-import android.os.AsyncTask;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -11,10 +9,18 @@ import java.net.SocketTimeoutException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WeMoListener extends AsyncTask<String, Void, String>{
+public class Listener implements Runnable{
     Boolean listening = true;
     Set<String> endpoints;
 
+    public void run(){
+        try {
+            startListener();
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     public void terminate() {
         listening = false;
@@ -23,7 +29,7 @@ public class WeMoListener extends AsyncTask<String, Void, String>{
     private void processPacket(DatagramPacket packet) {
         String originaldata = new String(packet.getData());
         System.out.println(originaldata);
-        if (originaldata.contains("Bridge") || originaldata.contains("49153")) {
+        if (originaldata.contains("urn:Belkin:device:controllee") || originaldata.contains("urn:Belkin:device:lightswitch")) {
             if (originaldata.toLowerCase().indexOf("location:") > -1) {
                 String location = originaldata.substring(originaldata.toLowerCase().indexOf("location:"));
                 location = location.substring(0, location.indexOf("\n"));
@@ -36,9 +42,9 @@ public class WeMoListener extends AsyncTask<String, Void, String>{
     private void startListener() throws IOException, InterruptedException {
         Set<String> endpoints = new HashSet<>();
         MulticastSocket recSocket = new MulticastSocket(null);
-        recSocket.bind(new InetSocketAddress("192.168.1.90", 10002));
+        recSocket.bind(new InetSocketAddress("192.168.1.90", 1901));
         recSocket.setTimeToLive(10);
-        recSocket.setSoTimeout(5000);
+        recSocket.setSoTimeout(1000);
         recSocket.joinGroup(InetAddress.getByName("239.255.255.250"));
 
         //log.info("waiting to receive");
@@ -63,17 +69,4 @@ public class WeMoListener extends AsyncTask<String, Void, String>{
             System.out.println(ep);
         }
     }
-
-    @Override
-    protected String doInBackground(String... strings) {
-        try {
-            startListener();
-        } catch (IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return endpoints.toString();
-    }
-
-
 }

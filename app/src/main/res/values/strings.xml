@@ -9,8 +9,11 @@
     <string name="action_settings">Settings</string>
     <string name="welcome_message">Welcome to your smart home</string>
     <string name="title_activity_display_message">Discovered Wemo Bulbs</string>
+    <string name="power_on">Power On/Off</string>
+    <string name="change_color">Change color</string>>
     <color name="white">#ffffff</color>
     <string name="title_activity_discovered_light_bulbs_list">Discovered LifX Bulbs</string>
     <string name="title_activity_light_bulb_array_adapter">LightBulbArrayAdapter</string>
     <string name="title_activity_lightbulb_array_adapter">LightbulbArrayAdapter</string>
+    <string name="title_activity_lif_xbulb_action">LifXBulbAction</string>
 </resources>

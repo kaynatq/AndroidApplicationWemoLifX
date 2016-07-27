@@ -14,6 +14,7 @@ import java.util.TimerTask;
  */
 public class LifXSetColor extends AsyncTask<String, Void, String> {
     private static int LIFX_SEND_PORT = 10000;
+    private String colorString = null;
 
     private static byte[] hexStringToByteArray(String s) {
         int len = s.length();
@@ -24,7 +25,9 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         }
         return data;
     }
-
+    public LifXSetColor(String color){
+        this.colorString = color;
+    }
     @Override
     protected String doInBackground(String... strings) {
         // Create a datagram socket, send the packet through it, close it.
@@ -34,7 +37,9 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
             String host = "192.168.1.93";
             int port = 56700;
 
-            String messageString = "310000340000000000000000000000000000000000000000000000000000000066000000005555ffffffffac0d00040000";
+            String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
+                    colorString +
+                    "ffffac0d00040000";
 
             // 2a000034b43cf0840000000000000000000000000000010b0000000000000000750000000000e8030000
 
@@ -43,7 +48,7 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
             // Get the internet address of the specified host
             InetAddress address = InetAddress.getByName(host);
             System.out.println(address);
-
+            System.out.println(colorString);
             // Initialize a datagram packet with data and address
 
             dsocket = new DatagramSocket(LIFX_SEND_PORT);

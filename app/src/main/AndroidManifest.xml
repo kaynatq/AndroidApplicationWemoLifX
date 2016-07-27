@@ -46,6 +46,10 @@
         <activity
             android:name=".LightbulbArrayAdapter"
             android:label="@string/title_activity_lightbulb_array_adapter"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LifXBulbAction"
+            android:label="@string/title_activity_lif_xbulb_action"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -39,7 +39,7 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
 
             String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
                     colorString +
-                    "ffffac0d00040000";
+                    "ac0d00040000";
 
             // 2a000034b43cf0840000000000000000000000000000010b0000000000000000750000000000e8030000
 

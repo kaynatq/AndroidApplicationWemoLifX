@@ -51,13 +51,7 @@ public class LifXBulbAction extends AppCompatActivity {
 
         return new double[]{h,s,v};
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lif_xbulb_action);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    public void changeColor(View view){
         final ColorPicker cp = new ColorPicker(LifXBulbAction.this, 0, 0, 0);
         cp.show();
 
@@ -67,13 +61,10 @@ public class LifXBulbAction extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // You can get single channel (value 0-255) *//*
-                int  selectedColorR = cp.getRed();
+                int selectedColorR = cp.getRed();
                 int selectedColorG = cp.getGreen();
                 int selectedColorB = cp.getBlue();
 
-                /* Or the android RGB Color (see the android Color class reference) */
-                int selectedColorRGB = cp.getColor();
 
                 double[] requiredColor = RGBtoHSV(selectedColorR, selectedColorG, selectedColorB);
                 requiredColor[0] = requiredColor[0] / 360 * 65535;
@@ -81,7 +72,9 @@ public class LifXBulbAction extends AppCompatActivity {
                 requiredColor[2] = requiredColor[2] / 360 * 65535;
                 String colorString = "";
                 colorString += Integer.toHexString((int)requiredColor[0]);
+
                 colorString += Integer.toHexString((int)requiredColor[1]);
+
                 colorString += Integer.toHexString((int)requiredColor[2]);
 
                 LifXSetColor lifXSetColor = new LifXSetColor(colorString);
@@ -89,6 +82,14 @@ public class LifXBulbAction extends AppCompatActivity {
                 cp.dismiss();
             }
         });
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lif_xbulb_action);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

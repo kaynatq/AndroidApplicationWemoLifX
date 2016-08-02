@@ -22,9 +22,9 @@ public class WemoDiscovery extends AsyncTask<String, Void, String>{
     Long msToListen;
     Set<String> endpoints = new HashSet<>();
     private static final int LISTENER_DELAY_SECONDS = 5;
+    private static final int NUM_UPNP_RETRIES = 3;
 
     public WemoDiscovery() {
-
     }
 
     @Override
@@ -75,11 +75,13 @@ public class WemoDiscovery extends AsyncTask<String, Void, String>{
     private void discover() throws IOException {
         InetSocketAddress socketAddress = new InetSocketAddress(InetAddress.getByName("239.255.255.250"), 1900);
 
-        int numTry = 3;
+        System.out.println("Start discovery");
+
+        int numTry = NUM_UPNP_RETRIES;
         while (numTry > 0) {
-            MulticastSocket socket = new MulticastSocket(null);
+            MulticastSocket socket = new MulticastSocket(1901);
             try {
-                socket.bind(new InetSocketAddress("192.168.1.90", 1901));
+                // socket.bind(new InetSocketAddress("192.168.1.90", 1901));
                 StringBuilder packet = new StringBuilder();
                 packet.append("M-SEARCH * HTTP/1.1\r\n");
                 packet.append("HOST: 239.255.255.250:1900\r\n");
@@ -91,6 +93,7 @@ public class WemoDiscovery extends AsyncTask<String, Void, String>{
                 System.out.println("sending discovery packet");
                 socket.send(new DatagramPacket(data, data.length, socketAddress));
             } catch (IOException e) {
+                e.printStackTrace();
                 listener.terminate();
             } finally {
                 socket.disconnect();
@@ -105,5 +108,7 @@ public class WemoDiscovery extends AsyncTask<String, Void, String>{
             }
             numTry--;
         }
+
+        System.out.println("end discovery");
     }
 }

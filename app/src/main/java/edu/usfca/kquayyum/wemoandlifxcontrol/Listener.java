@@ -14,6 +14,7 @@ public class Listener implements Runnable{
     Set<String> endpoints;
 
     public void run(){
+        //android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
         try {
             startListener();
         } catch (IOException | InterruptedException e) {
@@ -28,7 +29,9 @@ public class Listener implements Runnable{
 
     private void processPacket(DatagramPacket packet) {
         String originaldata = new String(packet.getData());
-        System.out.println(originaldata);
+        byte[] packetData = packet.getData();
+        System.out.println(packetData);
+        System.out.println(originaldata.getBytes());
         if (originaldata.contains("urn:Belkin:device:controllee") || originaldata.contains("urn:Belkin:device:lightswitch")) {
             if (originaldata.toLowerCase().indexOf("location:") > -1) {
                 String location = originaldata.substring(originaldata.toLowerCase().indexOf("location:"));
@@ -40,9 +43,11 @@ public class Listener implements Runnable{
     }
 
     private void startListener() throws IOException, InterruptedException {
+        System.out.println("Start listening");
+
         Set<String> endpoints = new HashSet<>();
-        MulticastSocket recSocket = new MulticastSocket(null);
-        recSocket.bind(new InetSocketAddress("192.168.1.90", 1901));
+        MulticastSocket recSocket = new MulticastSocket(1901);
+        // recSocket.bind(new InetSocketAddress("192.168.1.90", 1901));
         recSocket.setTimeToLive(10);
         recSocket.setSoTimeout(1000);
         recSocket.joinGroup(InetAddress.getByName("239.255.255.250"));

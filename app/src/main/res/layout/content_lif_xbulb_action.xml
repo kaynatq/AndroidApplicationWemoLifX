@@ -33,7 +33,7 @@
     <Button
         android:layout_width="200px"
         android:layout_height="200px"
-        android:onClick="discoverWemo"
+        android:onClick="changeColor"
         android:layout_marginLeft="10px"
         android:layout_marginTop="400px"
         android:background="@mipmap/color_wheel"/>

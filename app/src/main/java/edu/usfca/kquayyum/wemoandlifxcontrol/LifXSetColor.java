@@ -37,13 +37,8 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
             String host = "192.168.1.93";
             int port = 56700;
 
-            String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
-                    colorString +
-                    "ac0d00040000";
+            String messageString = "310000340000000000000000000000000000000000000000000000000000000066000000005555FFFFFFFFAC0D00040000";
 
-            // 2a000034b43cf0840000000000000000000000000000010b0000000000000000750000000000e8030000
-
-            // 310000340000000000000000000000000000000000000000000000000000000066000000005555ffffffffac0d00040000
             byte[] message = hexStringToByteArray(messageString);
             // Get the internet address of the specified host
             InetAddress address = InetAddress.getByName(host);

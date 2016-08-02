@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         WemoDiscovery wemoDiscovery = new WemoDiscovery();
         wemoDiscovery.execute();
         //EditText editText = (EditText) findViewById(R.id.edit_message);
-    //    WemoTurnOn wemoTurnOn = new WemoTurnOn();
+      //  WemoTurnOn wemoTurnOn = new WemoTurnOn();
 
-   //     wemoTurnOn.execute();
+        //wemoTurnOn.execute();
         message = "";
         intent.putExtra(EXTRA_MESSAGE, message);
 
@@ -103,20 +103,10 @@ public class MainActivity extends AppCompatActivity {
         localNetworkContext.getAllLightsCollection().setPowerState( LFXTypes.LFXPowerState.OFF);*/
 
 
-
-    /*    LifXListener lifXListener = new LifXListener();
-        lifXListener.execute();
-
-        LifXSetPowerOn lifXSetColor = new LifXSetPowerOn();
-        try {
-            lifXSetColor.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        lifXListener.terminate();
-        new Reminder(lifXListener, 5);
-        lifXListener.cancel(true);
-        lifXSetColor.cancel(true);*/
+        LifXGetService lifXX = new LifXGetService();
+        lifXX.execute();
+  //      LifXSetPowerOff lifXSetPowerOn = new LifXSetPowerOff();
+    //    lifXSetPowerOn.execute();
 
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

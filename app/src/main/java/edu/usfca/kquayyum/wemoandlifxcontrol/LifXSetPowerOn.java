@@ -29,8 +29,8 @@ public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
             String host = "192.168.1.93";
             int port = 56700;
 
-            String messageString = "31000034000000000000000000000000000000000000000000000000000000002100000000FFFFFFFFFFFFAC0D00040000";
-            byte[] message = messageString.getBytes();
+            String messageString = "2A0000340000000000000000000000000000000000000000000000000000000075000000FFFF00040000";
+            byte[] message = hexStringToByteArray(messageString);
 
             // Get the internet address of the specified host
             InetAddress address = InetAddress.getByName(host);
@@ -38,13 +38,12 @@ public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
 
 
             // Create a datagram socket, send the packet through it, close it.
-            DatagramSocket dsocket = new DatagramSocket(10000);
+            DatagramSocket dsocket = new DatagramSocket();
             dsocket.setBroadcast(true);
 
             // Initialize a datagram packet with data and address
             DatagramPacket packet = new DatagramPacket(message, message.length,
                     address, port);
-
             dsocket.send(packet);
             dsocket.close();
             System.out.println(packet);

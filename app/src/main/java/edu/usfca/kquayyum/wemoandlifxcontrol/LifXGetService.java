@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * send UDP packet to network to discover lifx devices
@@ -40,6 +38,7 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
                 byte[] message = hexStringToByteArray(messageString);
 
                 dsocket = new DatagramSocket(10000);
+                dsocket.connect(address, 56700);
                 dsocket.setBroadcast(true);
                 DatagramPacket packet = new DatagramPacket(message, message.length, address, port);
                 dsocket.send(packet);

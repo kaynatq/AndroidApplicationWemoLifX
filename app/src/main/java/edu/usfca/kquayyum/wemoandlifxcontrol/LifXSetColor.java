@@ -36,8 +36,10 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         try {
             String host = "192.168.1.93";
             int port = 56700;
-
-            String messageString = "310000340000000000000000000000000000000000000000000000000000000066000000005555FFFFFFFFAC0D00040000";
+            System.out.println("inside set color");
+            String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
+                    colorString +
+                    "FFFFFFFFAC0D00040000";
 
             byte[] message = hexStringToByteArray(messageString);
             // Get the internet address of the specified host
@@ -52,10 +54,10 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
                     address, port);
 
             dsocket.send(packet);
-           // dsocket.close();
-            System.out.println(packet.getData());
+          //  dsocket.close();
+           // System.out.println(packet.getData());
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         } finally {
             if (dsocket != null) {
                 dsocket.close();

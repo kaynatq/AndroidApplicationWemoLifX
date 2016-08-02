@@ -51,6 +51,24 @@ public class LifXBulbAction extends AppCompatActivity {
 
         return new double[]{h,s,v};
     }
+
+    private String convertToLEndian(String str){
+        int i = 4 - str.length();
+        while(i > 0){
+            str = "0" + str;
+            i--;
+        }
+        System.out.println("inside converter" + " " + str);
+        char[] chars = str.toCharArray();
+        char temp = chars[0];
+        chars[0] = chars[2];
+        chars[2] = temp;
+        temp = chars[1];
+        chars[1] = chars[3];
+        chars[3] = temp;
+        str = new String(chars);
+        return str;
+    }
     public void changeColor(View view){
         final ColorPicker cp = new ColorPicker(LifXBulbAction.this, 0, 0, 0);
         cp.show();
@@ -64,20 +82,19 @@ public class LifXBulbAction extends AppCompatActivity {
                 int selectedColorR = cp.getRed();
                 int selectedColorG = cp.getGreen();
                 int selectedColorB = cp.getBlue();
-
+                String hue = "", sat = "", bright = "";
+                String colorS = "";
 
                 double[] requiredColor = RGBtoHSV(selectedColorR, selectedColorG, selectedColorB);
                 requiredColor[0] = requiredColor[0] / 360 * 65535;
                 requiredColor[1] = requiredColor[1] / 360 * 65535;
                 requiredColor[2] = requiredColor[2] / 360 * 65535;
-                String colorString = "";
-                colorString += Integer.toHexString((int)requiredColor[0]);
-
-                colorString += Integer.toHexString((int)requiredColor[1]);
-
-                colorString += Integer.toHexString((int)requiredColor[2]);
-
-                LifXSetColor lifXSetColor = new LifXSetColor(colorString);
+                hue = Integer.toHexString((int)requiredColor[0]);
+                sat = Integer.toHexString((int)requiredColor[1]);
+                bright = Integer.toHexString((int)requiredColor[2]);
+                colorS += convertToLEndian(hue);
+                System.out.println(hue+sat+bright);
+                LifXSetColor lifXSetColor = new LifXSetColor(colorS);
                 lifXSetColor.execute();
                 cp.dismiss();
             }

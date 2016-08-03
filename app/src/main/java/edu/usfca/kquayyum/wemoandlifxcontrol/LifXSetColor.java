@@ -15,7 +15,7 @@ import java.util.TimerTask;
 public class LifXSetColor extends AsyncTask<String, Void, String> {
     private static int LIFX_SEND_PORT = 10000;
     private String colorString = null;
-
+    private String host;
     private static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -25,7 +25,8 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         }
         return data;
     }
-    public LifXSetColor(String color){
+    public LifXSetColor(String host, String color){
+        this.host = host;
         this.colorString = color;
     }
     @Override
@@ -34,7 +35,8 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         DatagramSocket dsocket = null;
 
         try {
-            String host = "192.168.1.93";
+            //String host = "192.168.1.93";
+
             int port = 56700;
             System.out.println("inside set color");
             String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +

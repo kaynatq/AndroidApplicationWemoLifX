@@ -1,6 +1,8 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,9 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private static final Logger log= Logger.getLogger( MainActivity.class.getName() );
     public final static String EXTRA_MESSAGE = "List of devices";
     public  String message = "";
+
+    private WifiManager wifiM;
 
 
 
@@ -42,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        wifiM = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager.MulticastLock multicastLock = wifiM
+                .createMulticastLock("multicastLock");
+        multicastLock.acquire();
+
     }
 
     @Override
@@ -90,26 +98,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     //D0730512BE03
-    /** Called when the user clicks the lifx button */
-    public void discoverLifX(View view) {
+    /** Called when the user clicks the find lights button */
+    public void discoverLights(View view) {
 
         // Do something in response to button
-        Intent intent = new Intent(this, DiscoverLifXActivity.class);
+      //  Intent intent = new Intent(this, DiscoverLightsActivity.class);
        // EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "List of lifx devices";
+        String message = "List of found lights";
 
-    /*    LFXNetworkContext localNetworkContext = LFXClient.getSharedInstance( this).getLocalNetworkContext();
-        localNetworkContext.connect();
-        localNetworkContext.getAllLightsCollection().setPowerState( LFXTypes.LFXPowerState.OFF);*/
+        //WemoDiscovery wemoDiscovery = new WemoDiscovery();
+        //wemoDiscovery.execute();
 
 
-        LifXGetService lifXX = new LifXGetService();
+        LifXGetService lifXX = new LifXGetService(wifiM, this);
         lifXX.execute();
-  //      LifXSetPowerOff lifXSetPowerOn = new LifXSetPowerOff();
-    //    lifXSetPowerOn.execute();
 
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        //startActivity(intent);
 
     }
 }

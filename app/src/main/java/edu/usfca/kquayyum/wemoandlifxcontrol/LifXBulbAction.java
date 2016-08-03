@@ -1,7 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.os.Bundle;
-import android.renderscript.Double2;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +13,13 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 public class LifXBulbAction extends AppCompatActivity {
 
     public static double[] RGBtoHSV(double r, double g, double b){
-
         double h, s, v;
-
         double min, max, delta;
-
         min = Math.min(Math.min(r, g), b);
         max = Math.max(Math.max(r, g), b);
-
         // V
         v = max;
-
         delta = max - min;
-
         // S
         if( max != 0 )
             s = delta / max;
@@ -35,7 +28,6 @@ public class LifXBulbAction extends AppCompatActivity {
             h = -1;
             return new double[]{h,s,v};
         }
-
         // H
         if( r == max )
             h = ( g - b ) / delta; // between yellow & magenta
@@ -43,12 +35,9 @@ public class LifXBulbAction extends AppCompatActivity {
             h = 2 + ( b - r ) / delta; // between cyan & yellow
         else
             h = 4 + ( r - g ) / delta; // between magenta & cyan
-
         h *= 60;    // degrees
-
         if( h < 0 )
             h += 360;
-
         return new double[]{h,s,v};
     }
 
@@ -69,11 +58,10 @@ public class LifXBulbAction extends AppCompatActivity {
         str = new String(chars);
         return str;
     }
+
     public void changeColor(View view){
         final ColorPicker cp = new ColorPicker(LifXBulbAction.this, 0, 0, 0);
         cp.show();
-
-
         Button okColor = (Button)cp.findViewById(R.id.okColorButton);
         okColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,13 +81,24 @@ public class LifXBulbAction extends AppCompatActivity {
                 sat = Integer.toHexString((int)requiredColor[1]);
                 bright = Integer.toHexString((int)requiredColor[2]);
                 colorS += convertToLEndian(hue);
-                System.out.println(hue+sat+bright);
-                LifXSetColor lifXSetColor = new LifXSetColor(colorS);
+                System.out.println(colorS);
+                LifXSetColor lifXSetColor = new LifXSetColor(getIntent().getStringExtra("ip"), colorS);
                 lifXSetColor.execute();
                 cp.dismiss();
             }
         });
     }
+
+    public void powerOn(View view){
+        LifXSetPowerOn lifXSetPowerOn = new LifXSetPowerOn(getIntent().getStringExtra("ip"));
+        lifXSetPowerOn.execute();
+    }
+
+    public void powerOff(View view){
+        LifXSetPowerOff lifXSetPowerOff = new LifXSetPowerOff(getIntent().getStringExtra("ip"));
+        lifXSetPowerOff.execute();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,5 +116,4 @@ public class LifXBulbAction extends AppCompatActivity {
             }
         });
     }
-
 }

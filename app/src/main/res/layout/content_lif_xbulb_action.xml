@@ -19,7 +19,7 @@
         android:background="@mipmap/power_button"
         android:layout_marginLeft="10px"
         android:layout_marginTop="50px"
-        android:onClick="discoverLifX"/>
+        android:onClick="powerOn"/>
 
     <TextView
         android:layout_width="200px"
@@ -45,6 +45,23 @@
         android:textColor="@color/white"
         android:layout_marginLeft="250px"
         android:layout_marginTop="400px"
+        android:textSize="50px"/>
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:background="@mipmap/power_button"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="750px"
+        android:onClick="powerOff"/>
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:text="@string/power_off"
+        android:textColor="@color/white"
+        android:layout_marginLeft="250px"
+        android:layout_marginTop="750px"
         android:textSize="50px"/>
 
 </RelativeLayout>

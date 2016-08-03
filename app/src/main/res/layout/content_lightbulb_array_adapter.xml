@@ -29,7 +29,7 @@
         android:text="@string/wemo_list2"
         android:textColor="@color/white"
         android:textSize="50px"
-        android:onClick="discoverLifX"/>
+        android:onClick="discoverLights"/>
 
 
 </RelativeLayout>

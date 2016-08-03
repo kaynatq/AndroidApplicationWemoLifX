@@ -11,8 +11,10 @@ import java.util.TimerTask;
  * Class to Turn on the light
  */
 public class LifXSetPowerOff extends AsyncTask<String, Void, String> {
-    private static int LIFX_SEND_PORT = 10000;
-
+    private String host = "";
+    public LifXSetPowerOff(String host){
+        this.host = host;
+    }
     private static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -26,9 +28,7 @@ public class LifXSetPowerOff extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String host = "192.168.1.93";
             int port = 56700;
-
             String messageString = "2A0000340000000000000000000000000000000000000000000000000000000075000000000000040000";
             byte[] message = hexStringToByteArray(messageString);
 

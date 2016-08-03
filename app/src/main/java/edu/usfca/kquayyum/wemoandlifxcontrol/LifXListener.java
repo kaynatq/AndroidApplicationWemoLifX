@@ -24,7 +24,7 @@ public class LifXListener implements Runnable{
 
 
     public void startListener() throws IOException, InterruptedException {
-        InetAddress address = InetAddress.getByName("192.168.1.255");
+        // InetAddress address = InetAddress.getByName("192.168.1.255");
         listening = true;
         // Create a datagram socket, send the packet through it, close it.
         DatagramSocket dsocket = new DatagramSocket(10000);
@@ -35,7 +35,7 @@ public class LifXListener implements Runnable{
         while (listening)
         {
             byte[] buf = new byte[50];
-            DatagramPacket input = new DatagramPacket(buf, buf.length, address, 56700);
+            DatagramPacket input = new DatagramPacket(buf, buf.length);
             try {
                 dsocket.receive(input);
                 System.out.println(input.getAddress().toString().substring(1, input.getAddress().toString().length()));

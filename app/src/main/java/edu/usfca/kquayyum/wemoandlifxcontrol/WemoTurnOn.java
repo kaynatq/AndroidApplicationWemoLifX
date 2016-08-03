@@ -1,5 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;

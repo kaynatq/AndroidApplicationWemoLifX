@@ -12,7 +12,7 @@ import java.util.TimerTask;
  */
 public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
     private static int LIFX_SEND_PORT = 10000;
-
+    private String host = null;
     private static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];
@@ -22,13 +22,14 @@ public class LifXSetPowerOn extends AsyncTask<String, Void, String> {
         }
         return data;
     }
-
+    public LifXSetPowerOn(String host){
+        this.host = host;
+    }
     @Override
     protected String doInBackground(String... strings) {
         try {
-            String host = "192.168.1.93";
-            int port = 56700;
 
+            int port = 56700;
             String messageString = "2A0000340000000000000000000000000000000000000000000000000000000075000000FFFF00040000";
             byte[] message = hexStringToByteArray(messageString);
 

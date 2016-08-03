@@ -38,7 +38,7 @@ public class LightbulbArrayAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.content_lightbulb_array_adapter, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
-        textView.setText("Light " + position);
+        textView.setText("Light " + position+1);
 
         // Change icon based on name
         String s = values[position];

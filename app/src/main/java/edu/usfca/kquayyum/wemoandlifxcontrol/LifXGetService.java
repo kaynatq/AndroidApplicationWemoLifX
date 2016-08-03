@@ -86,8 +86,8 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         }
 
         System.out.println("Done: LifX Discovery");
-        System.out.println(lifXHosts.size());
-        if(lifXHosts.size()>0) {
+
+        if(lifXHosts.size() > 0) {
             String[] str = new String[lifXHosts.size()];
             Intent intent = new Intent(context, DiscoverLightsActivity.class);
             int i = 0;
@@ -95,6 +95,10 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
                 str[i++] = s;
             }
             intent.putExtra("list", str);
+            context.startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(context, NoDeviceFoundActivity.class);
             context.startActivity(intent);
         }
         return "send successful";

@@ -10,4 +10,8 @@ If the user wants to discover and control smart lights using this app, at first 
 * Once we are connected to that wifi, we can try to add the bulb or device to the app. A window is shown with the available networks, choose your network and connect the bulb with it. The bulbs are now on-board. Details can be found in [LifX] (https://support.lifx.com/hc/en-us/categories/200238164-Getting-Started) and [WeMo] (http://www.belkin.com/us/support-article?articleNum=116173) sites.
 
 
+## How it works?
+
+
+
 

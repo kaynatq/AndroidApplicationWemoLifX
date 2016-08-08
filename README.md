@@ -6,7 +6,7 @@ This is a simple client application that can discover smart lights within our lo
 
 If the user wants to discover and control smart lights using this app, at first they will have to on-board the bulbs with the existing apps for WeMo and LifX in Android. Here is how to do this:
 
-* When the bulbs are plugged in, they broadcast a wifi network, find that network in Settings 
+** When the bulbs are plugged in, they broadcast a wifi network, find that network in Settings 
 
 
 

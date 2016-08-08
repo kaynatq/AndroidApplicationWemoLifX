@@ -1,5 +1,7 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.xml.sax.SAXException;
@@ -39,11 +41,13 @@ public class WemoBridgeDiscover {
      * The SSDP port
      */
     public static final int PORT = 1900;
+    private Context ctx;
 
     /**
      * The broadcast address to use when trying to contact UPnP devices
      */
     public static final String IP = "239.255.255.250";
+    public static HashSet<String> str = new HashSet<>();
 
     /**
      * The default timeout for the initial broadcast request
@@ -64,7 +68,9 @@ public class WemoBridgeDiscover {
      * Tag for debug logs.
      */
     private static String DEBUG_TAG = "WemoBridgeDiscover";
-
+    public WemoBridgeDiscover(Context ctx){
+     this.ctx = ctx;
+    }
 
     private Set<WemoBridgeDevice> bridges = new HashSet<WemoBridgeDevice>();
     private Map<String, WemoLightDevice> lights = new HashMap<String, WemoLightDevice>();
@@ -118,13 +124,6 @@ public class WemoBridgeDiscover {
                     }
                 }
 
-                /*
-                // TODO: Remove
-                WemoBridgeDevice bb = new WemoBridgeDevice();
-                bb.setLocation("http://192.168.1.92:49153/setup.xml");
-                bridges.add(bb);
-                */
-
                 for (WemoBridgeDevice b : bridges) {
                     Log.d(DEBUG_TAG, "Getting detailed Bridge information.");
                     b.loadBridgeInfo();
@@ -139,8 +138,26 @@ public class WemoBridgeDiscover {
                         }
                     }
                 }
+                if(lights.size() > 0)
+                {
+                 //   Intent intent = new Intent(ctx, DiscoverLightsActivity.class);
+                    Iterator it = lights.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry e = (Map.Entry) it.next();
+                        WemoLightDevice l = (WemoLightDevice) e.getValue();
+                        str.add(e.getKey().toString());
+                    }
+             //       ArrayList<String> str2 = intent.getStringArrayListExtra("list");
 
-                Iterator it = lights.entrySet().iterator();
+             /*       if(str2 != null){
+                        for(String s: str2){
+                            str.add(s);
+                        }
+                    }
+                    intent.putExtra("wemo", str);*/
+//                    ctx.startActivity(intent);
+                }
+                /*Iterator it = lights.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry e = (Map.Entry) it.next();
 
@@ -148,7 +165,7 @@ public class WemoBridgeDiscover {
                     l.turnOff();
 
                     // l.turnOn();
-                }
+                }*/
 
             } catch (Exception e) {
                 e.printStackTrace();

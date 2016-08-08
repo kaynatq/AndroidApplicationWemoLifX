@@ -1,6 +1,7 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 .createMulticastLock("multicastLock");
         multicastLock.acquire();
 
-        WemoBridgeDiscover d = new WemoBridgeDiscover();
+        WemoBridgeDiscover d = new WemoBridgeDiscover(getApplicationContext());
         try {
             d.discover();
         } catch (IOException e) {
@@ -77,21 +78,9 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        //WeMoDiscoverySSDP weMoDiscovery = new WeMoDiscoverySSDP(this, wifiM);
-        //weMoDiscovery.execute();
-
-        /*
-        WeMoSDKContext weMoSDKContext = new WeMoSDKContext(this.getBaseContext());
-        ArrayList<String> upnp = weMoSDKContext.getListOfWeMoDevicesOnLAN();
-
-        for(String s: upnp){
-            System.out.println(s);
-        }*/
-
       //  System.out.println(WeMoDevice.LIGHT_SWITCH);
-   //     LifXGetService lifXX = new LifXGetService(wifiM, this);
-     //   lifXX.execute();
+        LifXGetService lifXX = new LifXGetService(wifiM, this);
+        lifXX.execute();
 
     }
 }

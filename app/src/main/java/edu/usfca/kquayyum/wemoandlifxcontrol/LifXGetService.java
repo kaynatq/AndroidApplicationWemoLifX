@@ -13,6 +13,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -86,20 +87,26 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         }
 
         System.out.println("Done: LifX Discovery");
-
+        ArrayList<String> str = new ArrayList<>();
+        Intent intent = new Intent(context, DiscoverLightsActivity.class);
         if(lifXHosts.size() > 0) {
-            String[] str = new String[lifXHosts.size()];
-            Intent intent = new Intent(context, DiscoverLightsActivity.class);
-            int i = 0;
-            for(String s: lifXHosts){
-                str[i++] = s;
+            for (String s : lifXHosts) {
+                str.add(s);
             }
+        }
+            HashSet<String> str2 = WemoBridgeDiscover.str;
+            if(str2 != null){
+                for(String s: str2){
+                    str.add(s);
+                }
+            }
+        if(str.size() > 0){
             intent.putExtra("list", str);
             context.startActivity(intent);
         }
         else{
-            Intent intent = new Intent(context, NoDeviceFoundActivity.class);
-            context.startActivity(intent);
+            Intent noIntent = new Intent(context, NoDeviceFoundActivity.class);
+            context.startActivity(noIntent);
         }
         return "send successful";
     }

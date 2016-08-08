@@ -24,8 +24,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
-    compile files('libs/WeMoSDK_1.1.jar')
     compile 'com.github.getsenic:lifx-sdk-android:0.5.12@aar'
     compile 'com.pes.materialcolorpicker:library:1.0.+'
-
+    compile files('libs/commons-lang3-3.4.jar')
 }
+

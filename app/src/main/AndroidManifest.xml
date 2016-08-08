@@ -15,6 +15,10 @@
     <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,15 +36,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DiscoverWemoActivity"
-            android:label="@string/title_activity_display_message"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.usfca.kquayyum.wemoandlifxcontrol.MainActivity" />
-        </activity>
-        <activity
             android:name=".DiscoverLightsActivity"
             android:label="@string/title_activity_discovered_light_bulbs_list"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -49,12 +44,16 @@
             android:label="@string/title_activity_lightbulb_array_adapter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LifXBulbAction"
+            android:name=".LightBulbAction"
             android:label="@string/title_activity_lif_xbulb_action"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NoDeviceFoundActivity"
             android:label="@string/title_activity_no_device_found"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WeMoDiscoveryActivity"
+            android:label="@string/title_activity_we_mo_discovery"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

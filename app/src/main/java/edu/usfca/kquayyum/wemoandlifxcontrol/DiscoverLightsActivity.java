@@ -21,7 +21,7 @@ public class DiscoverLightsActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         //get selected items
-        Intent intent = new Intent(this, LifXBulbAction.class);
+        Intent intent = new Intent(this, LightBulbAction.class);
 
         intent.putExtra("ip", l.getItemAtPosition(position).toString());
         startActivity(intent);

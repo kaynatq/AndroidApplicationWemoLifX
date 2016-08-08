@@ -1,7 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,10 +11,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * The start page
@@ -44,12 +45,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        wifiM = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        WifiManager.MulticastLock multicastLock = wifiM
-                .createMulticastLock("multicastLock");
-        multicastLock.acquire();
-
     }
 
     @Override
@@ -74,48 +69,38 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    /** Called when the user clicks the wemo button */
-    public void discoverWemo(View view) throws IOException, InterruptedException, TimeoutException, ExecutionException {
-
-
-        // Do something in response to button
-        Intent intent = new Intent(this, DiscoverWemoActivity.class);
-
-        WemoDiscovery wemoDiscovery = new WemoDiscovery();
-        wemoDiscovery.execute();
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-      //  WemoTurnOn wemoTurnOn = new WemoTurnOn();
-
-        //wemoTurnOn.execute();
-        message = "";
-        intent.putExtra(EXTRA_MESSAGE, message);
-
-        startActivity(intent);
-
-    }
-
-
-
-    //D0730512BE03
-    /** Called when the user clicks the find lights button */
     public void discoverLights(View view) {
+        wifiM = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager.MulticastLock multicastLock = wifiM
+                .createMulticastLock("multicastLock");
+        multicastLock.acquire();
 
-        // Do something in response to button
-      //  Intent intent = new Intent(this, DiscoverLightsActivity.class);
-       // EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "List of found lights";
+        WemoBridgeDiscover d = new WemoBridgeDiscover();
+        try {
+            d.discover();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
 
-        //WemoDiscovery wemoDiscovery = new WemoDiscovery();
-        //wemoDiscovery.execute();
 
+        //WeMoDiscoverySSDP weMoDiscovery = new WeMoDiscoverySSDP(this, wifiM);
+        //weMoDiscovery.execute();
 
-        LifXGetService lifXX = new LifXGetService(wifiM, this);
-        lifXX.execute();
+        /*
+        WeMoSDKContext weMoSDKContext = new WeMoSDKContext(this.getBaseContext());
+        ArrayList<String> upnp = weMoSDKContext.getListOfWeMoDevicesOnLAN();
 
+        for(String s: upnp){
+            System.out.println(s);
+        }*/
 
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        //startActivity(intent);
+      //  System.out.println(WeMoDevice.LIGHT_SWITCH);
+   //     LifXGetService lifXX = new LifXGetService(wifiM, this);
+     //   lifXX.execute();
 
     }
 }

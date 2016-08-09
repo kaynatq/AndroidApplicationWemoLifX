@@ -182,8 +182,7 @@ public class WemoBridgeDevice {
      * @throws SAXException if an error occurs while parsing the request
      * @throws IOException  on communication errors
      */
-    public void loadBridgeInfo()
-            throws SAXException, IOException, ParserConfigurationException {
+    public void loadBridgeInfo() throws SAXException, IOException, ParserConfigurationException {
         URL url = new URL(location);
         this.baseUrl = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
         System.out.println(this.baseUrl);

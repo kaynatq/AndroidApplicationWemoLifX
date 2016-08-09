@@ -1,22 +1,16 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
-import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
@@ -27,62 +21,7 @@ public class WemoUpnpUtils {
 
     public static final SAXParserFactory saxFactory = SAXParserFactory.newInstance();
 
-    public static class NameValueParser extends DefaultHandler {
-        /**
-         * A reference to the name-value map to populate with the data being read
-         */
-        private Map<String,String> nameValue = null;
 
-        /**
-         * The last read element
-         */
-        private String currentElement;
-
-        public NameValueParser(Map<String, String> nv) {
-            nameValue = nv;
-        }
-
-        /**
-         * Override handling of start of an element.
-         *
-         * @see org.xml.sax.ContentHandler#startElement
-         */
-        @Override
-        public void startElement(String uri, String localName, String qName,
-                                 Attributes attributes) throws SAXException {
-            currentElement = localName;
-        }
-
-        /**
-         * Override handling of end of an element.
-         */
-        @Override
-        public void endElement(String uri, String localName, String qName)
-                throws SAXException {
-            currentElement = null;
-        }
-
-        /**
-         * Receive notification of character data inside an element.
-         *
-         * Stores the characters as value, using {@link #currentElement} as a key
-         *
-         * @see org.xml.sax.ContentHandler#characters
-         */
-        @Override
-        public void characters(char[] ch, int start, int length)
-                throws SAXException {
-            if (currentElement != null) {
-                String newValue = new String(ch,start,length);
-                String oldValue = nameValue.get(currentElement);
-                if (oldValue != null) {
-                    nameValue.put(currentElement, oldValue + newValue);
-                } else {
-                    nameValue.put(currentElement, newValue);
-                }
-            }
-        }
-    }
 
 
     /**

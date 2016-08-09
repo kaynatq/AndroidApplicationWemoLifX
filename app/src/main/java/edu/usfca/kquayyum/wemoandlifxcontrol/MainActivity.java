@@ -1,7 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

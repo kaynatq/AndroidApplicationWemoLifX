@@ -145,25 +145,7 @@ public class WemoBridgeDiscover {
                         WemoLightDevice l = (WemoLightDevice) e.getValue();
                         str.add(l);
                     }
-             //       ArrayList<String> str2 = intent.getStringArrayListExtra("list");
-
-             /*       if(str2 != null){
-                        for(String s: str2){
-                            str.add(s);
-                        }
-                    }
-                    intent.putExtra("wemo", str);*/
-//                    ctx.startActivity(intent);
                 }
-                /*Iterator it = lights.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry e = (Map.Entry) it.next();
-
-                    WemoLightDevice l = (WemoLightDevice) e.getValue();
-                    l.turnOff();
-
-                    // l.turnOn();
-                }*/
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -227,7 +209,7 @@ public class WemoBridgeDiscover {
      * @return Collection if {@link InetAddress}es
      */
     private List<InetAddress> getLocalInetAddresses() {
-        List<InetAddress> arrayIPAddress = new ArrayList<InetAddress>();
+        List<InetAddress> arrayIPAddress = new ArrayList<>();
 
         // Get all network interfaces
         Enumeration<NetworkInterface> networkInterfaces;

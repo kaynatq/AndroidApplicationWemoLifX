@@ -35,29 +35,19 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         DatagramSocket dsocket = null;
 
         try {
-            //String host = "192.168.1.93";
-
             int port = 56700;
             System.out.println("inside set color");
             String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
                     colorString +
-                    "AC0D00040000";
+                    "FFFFFFFFAC0D00040000";
 
             byte[] message = hexStringToByteArray(messageString);
-            // Get the internet address of the specified host
             InetAddress address = InetAddress.getByName(host);
-            System.out.println(address);
-            System.out.println(colorString);
-            // Initialize a datagram packet with data and address
-
             dsocket = new DatagramSocket(LIFX_SEND_PORT);
             dsocket.setBroadcast(true);
             DatagramPacket packet = new DatagramPacket(message, message.length,
                     address, port);
-
             dsocket.send(packet);
-          //  dsocket.close();
-           // System.out.println(packet.getData());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

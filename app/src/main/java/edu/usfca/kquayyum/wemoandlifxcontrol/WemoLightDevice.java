@@ -1,5 +1,8 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
+import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.xml.sax.Attributes;
@@ -9,6 +12,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;

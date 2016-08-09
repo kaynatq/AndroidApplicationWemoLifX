@@ -39,12 +39,7 @@ public class LightbulbArrayAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.label);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.logo);
         textView.setText("Light " + (position+1));
-
-        // Change icon based on name
         String s = values[position];
-
-        System.out.println(s);
-
         imageView.setImageResource(resId);
         rowView.setBackgroundColor(color);
 

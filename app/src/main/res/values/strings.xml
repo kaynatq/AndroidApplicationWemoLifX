@@ -18,6 +18,7 @@
     <string name="title_activity_light_bulb_array_adapter">LightBulbArrayAdapter</string>
     <string name="title_activity_lightbulb_array_adapter">LightbulbArrayAdapter</string>
     <string name="title_activity_lif_xbulb_action">LifXBulbAction</string>
+    <string name="title_activity_wemo_bulb_action">WeMoBulbAction</string>
     <string name="title_activity_no_device_found">NoDeviceFoundActivity</string>
     <string name="title_activity_we_mo_discovery">WeMoDiscoveryActivity</string>
 </resources>

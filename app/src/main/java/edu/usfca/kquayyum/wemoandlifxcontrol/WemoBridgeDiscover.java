@@ -47,7 +47,7 @@ public class WemoBridgeDiscover {
      * The broadcast address to use when trying to contact UPnP devices
      */
     public static final String IP = "239.255.255.250";
-    public static HashSet<String> str = new HashSet<>();
+    public static HashSet<WemoLightDevice> str = new HashSet<>();
 
     /**
      * The default timeout for the initial broadcast request
@@ -73,7 +73,7 @@ public class WemoBridgeDiscover {
     }
 
     private Set<WemoBridgeDevice> bridges = new HashSet<WemoBridgeDevice>();
-    private Map<String, WemoLightDevice> lights = new HashMap<String, WemoLightDevice>();
+
 
     /*
       *  Thread class for sending a search datagram and process the response.
@@ -81,7 +81,6 @@ public class WemoBridgeDiscover {
     private class SendDiscoveryThread extends Thread {
         InetAddress ip;
         String searchMessage;
-
         SendDiscoveryThread(InetAddress localIP, String searchMessage) {
             this.ip = localIP;
             this.searchMessage = searchMessage;
@@ -133,19 +132,18 @@ public class WemoBridgeDiscover {
 
                     for (WemoLightDevice l : lightList) {
                         if (l.getProductName().compareToIgnoreCase(WemoLightDevice.productNameType) == 0) {
-                            lights.put(l.getFriendlyName(), l);
+                            MainActivity.lights.put(l.getDeviceId(), l);
                             Log.d(DEBUG_TAG, l.toString());
                         }
                     }
                 }
-                if(lights.size() > 0)
+                if(MainActivity.lights.size() > 0)
                 {
-                 //   Intent intent = new Intent(ctx, DiscoverLightsActivity.class);
-                    Iterator it = lights.entrySet().iterator();
+                    Iterator it = MainActivity.lights.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry e = (Map.Entry) it.next();
                         WemoLightDevice l = (WemoLightDevice) e.getValue();
-                        str.add(e.getKey().toString());
+                        str.add(l);
                     }
              //       ArrayList<String> str2 = intent.getStringArrayListExtra("list");
 

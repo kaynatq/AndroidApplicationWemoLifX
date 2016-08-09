@@ -10,31 +10,38 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class DiscoverLightsActivity extends ListActivity {
+    ArrayList<String> listOfLights = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> str2 = getIntent().getStringArrayListExtra("list");
+        listOfLights = getIntent().getStringArrayListExtra("list");
         int i = 0;
-        String[] str = new String[str2.size()];
+        String[] str = new String[listOfLights.size()];
         i=0;
 
-        if(str2 != null) {
-            for (String s : str2) {
+        if(listOfLights != null) {
+            for (String s : listOfLights) {
                 str[i++] = s;
             }
         }
         setListAdapter(new LightbulbArrayAdapter(this, str, R.mipmap.lifx_bulb, Color.rgb(119, 0, 255)));
-
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
         //get selected items
-        Intent intent = new Intent(this, LightBulbAction.class);
+        Intent intentLifX = new Intent(this, LifXBulbAction.class);
+        Intent intentWeMo = new Intent(this, WeMoBulbAction.class);
+        String name = l.getItemAtPosition(position).toString();
 
-        intent.putExtra("ip", l.getItemAtPosition(position).toString());
-        startActivity(intent);
+        if (name.contains(".")){
+            intentLifX.putExtra("ip", name);
+            startActivity(intentLifX);
+        } else {
+            intentWeMo.putExtra("lightName", name);
+            startActivity(intentWeMo);
+        }
     }
 }

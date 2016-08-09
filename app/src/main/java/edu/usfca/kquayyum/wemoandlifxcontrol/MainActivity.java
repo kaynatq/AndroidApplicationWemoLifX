@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,18 +22,15 @@ import javax.xml.parsers.ParserConfigurationException;
  * The start page
  */
 public class MainActivity extends AppCompatActivity {
-    private static final Logger log= Logger.getLogger( MainActivity.class.getName() );
-    public final static String EXTRA_MESSAGE = "List of devices";
-    public  String message = "";
+    private static final Logger log = Logger.getLogger( MainActivity.class.getName());
+    public static HashMap<String, WemoLightDevice> lights = new HashMap<>();
 
     private WifiManager wifiM;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -75,10 +73,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-
-      //  System.out.println(WeMoDevice.LIGHT_SWITCH);
         LifXGetService lifXX = new LifXGetService(wifiM, this);
         lifXX.execute();
-
     }
 }

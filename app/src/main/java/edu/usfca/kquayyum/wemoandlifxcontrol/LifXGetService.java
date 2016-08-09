@@ -94,13 +94,14 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
                 str.add(s);
             }
         }
-            HashSet<String> str2 = WemoBridgeDiscover.str;
+            HashSet<WemoLightDevice> str2 = WemoBridgeDiscover.str;
             if(str2 != null){
-                for(String s: str2){
-                    str.add(s);
+                for(WemoLightDevice s: str2){
+                    str.add(s.getDeviceId());
                 }
             }
-        if(str.size() > 0){
+
+        if (str.size() > 0){
             intent.putExtra("list", str);
             context.startActivity(intent);
         }

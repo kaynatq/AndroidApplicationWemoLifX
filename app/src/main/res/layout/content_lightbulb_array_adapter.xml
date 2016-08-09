@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/black"
+    android:background="@drawable/buttonselector"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.usfca.kquayyum.wemoandlifxcontrol.LightbulbArrayAdapter"
     tools:showIn="@layout/activity_lightbulb_array_adapter">
@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttonselector"
         android:textColor="@color/white"
-        android:textSize="80px" />
+        android:textSize="80px"
+        android:textStyle="italic"/>
 
 
 </RelativeLayout>

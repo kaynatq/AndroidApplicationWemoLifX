@@ -25,6 +25,7 @@ public class WemoLightDevice {
     private WemoBridgeDevice rootDevice;
     private String deviceIndex = "";
     private String deviceId = "";
+    private String capabilityValue = "";
     private String friendlyName = "";
 
     public String getProductName() {
@@ -34,7 +35,6 @@ public class WemoLightDevice {
     public String getDeviceId() {
         return deviceId;
     }
-
     private String productName = "";
 
     public static final String productNameType = "Lighting";
@@ -133,6 +133,9 @@ public class WemoLightDevice {
                 } else if (currentElement.compareToIgnoreCase("friendlyName") == 0) {
                     currentLight.friendlyName = value;
                 }
+                else if(currentElement.compareToIgnoreCase("capabilityValue") == 0){
+                    currentLight.capabilityValue = value;
+                }
             }
         }
     }
@@ -179,7 +182,7 @@ public class WemoLightDevice {
     }
 
     public void turnOn() {
-        changeLightStatus("1", "250");
+        changeLightStatus("1", "255");
     }
 
     public void turnOff() {

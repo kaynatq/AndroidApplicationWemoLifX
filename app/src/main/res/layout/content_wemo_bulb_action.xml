@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@color/purple"
+    android:background="@color/black"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".WeMoBulbAction"
@@ -22,13 +22,15 @@
         android:onClick="powerOnWemo"/>
 
     <TextView
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/power_on"
         android:textColor="@color/white"
         android:layout_marginLeft="250px"
-        android:layout_marginTop="50px"
-        android:textSize="50px"/>
+        android:background="@drawable/buttonselector"
+        android:layout_marginTop="100px"
+        android:onClick="powerOnWemo"
+        android:textSize="80px"/>
 
 
     <Button
@@ -40,12 +42,14 @@
         android:onClick="powerOffWemo"/>
 
     <TextView
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/power_off"
         android:textColor="@color/white"
         android:layout_marginLeft="250px"
-        android:layout_marginTop="750px"
-        android:textSize="50px"/>
+        android:layout_marginTop="800px"
+        android:background="@drawable/buttonselector"
+        android:onClick="powerOffWemo"
+        android:textSize="80px"/>
 
 </RelativeLayout>

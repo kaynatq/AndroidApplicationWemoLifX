@@ -11,14 +11,14 @@
     <string name="title_activity_display_message">Discovered Wemo Bulbs</string>
     <string name="power_on">Power On</string>
     <string name="power_off">Power Off</string>
-    <string name="text_notFound">No device found</string>
+    <string name="text_notFound">No device found. Please try again!</string>
     <string name="change_color">Change color</string>>
     <color name="white">#ffffff</color>
     <string name="title_activity_discovered_light_bulbs_list">Discovered LifX Bulbs</string>
-    <string name="title_activity_light_bulb_array_adapter">LightBulbArrayAdapter</string>
     <string name="title_activity_lightbulb_array_adapter">LightbulbArrayAdapter</string>
-    <string name="title_activity_lif_xbulb_action">LifXBulbAction</string>
-    <string name="title_activity_wemo_bulb_action">WeMoBulbAction</string>
-    <string name="title_activity_no_device_found">NoDeviceFoundActivity</string>
-    <string name="title_activity_we_mo_discovery">WeMoDiscoveryActivity</string>
+    <string name="title_activity_light_bulb_array_adapter">List of lights found</string>
+    <string name="title_activity_lif_xbulb_action">Choose your action</string>
+    <string name="title_activity_wemo_bulb_action">Choose your action</string>
+    <string name="title_activity_no_device_found">Discovery Complete !!!</string>
+    <string name="title_activity_we_mo_discovery">Discovered WeMo Bulbs</string>
 </resources>

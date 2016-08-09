@@ -21,6 +21,7 @@
         android:textColor="@color/white"
         android:layout_marginLeft="10px"
         android:layout_marginTop="350px"
-        android:textSize="100px"/>
+        android:textSize="100px"
+        android:textStyle="italic"/>
 
 </RelativeLayout>

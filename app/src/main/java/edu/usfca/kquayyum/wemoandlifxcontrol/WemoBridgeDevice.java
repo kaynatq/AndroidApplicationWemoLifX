@@ -25,6 +25,7 @@ public class WemoBridgeDevice {
     /**
      * The following are basic information of the bridge device
      * that is parsed from the MSearch discovery reply.
+     * Attribution: Concept taken from python API for WeMo (https://github.com/iancmcc/ouimeaux)
      */
     private String location = "";
     private String st = "";
@@ -187,22 +188,13 @@ public class WemoBridgeDevice {
         this.baseUrl = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
         System.out.println(this.baseUrl);
 
-        // SAXParserFactory saxFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = WemoUpnpUtils.saxFactory.newSAXParser();
         XMLReader xmlReader = saxParser.getXMLReader();
 
         WemoBridgeHandler handler = new WemoBridgeHandler(this);
         xmlReader.setContentHandler(handler);
 
-        /*
-        URL url = new URL(location);
-        URLConnection urlConnectionObject = url.openConnection();
-        urlConn.addRequestProperty("Cache-Control", "no-cache");
-        urlConn.setReadTimeout(WemoUpnpUtils.DEFAULT_HTTP_RECEIVE_TIMEOUT);
-        */
-
         xmlReader.parse(new InputSource(location));
-        // xmlReader.parse(new InputSource(urlConn.getInputStream()));
 
         bridgeServiceType = "urn:Belkin:service:bridge:1";
         bridgeServiceId = "urn:Belkin:serviceId:bridge1";

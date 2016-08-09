@@ -1,10 +1,5 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
-import android.os.AsyncTask;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -12,7 +7,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +17,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Created by kaynat on 8/7/16.
+ * Attribution: Concept taken from python API for WeMo (https://github.com/iancmcc/ouimeaux)
  */
 public class WemoLightDevice {
     private static final String DEBUG_TAG = "WemoLightDevice";
@@ -36,16 +31,8 @@ public class WemoLightDevice {
         return productName;
     }
 
-    public String getDeviceIndex() {
-        return deviceIndex;
-    }
-
     public String getDeviceId() {
         return deviceId;
-    }
-
-    public String getFriendlyName() {
-        return friendlyName;
     }
 
     private String productName = "";

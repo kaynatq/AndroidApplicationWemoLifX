@@ -87,22 +87,21 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         }
 
         System.out.println("Done: LifX Discovery");
-        ArrayList<String> str = new ArrayList<>();
+        HashSet<String> str = new HashSet<>();
         Intent intent = new Intent(context, DiscoverLightsActivity.class);
         if(lifXHosts.size() > 0) {
-            for (String s : lifXHosts) {
-                str.add(s);
+            str.addAll(lifXHosts);
+        }
+        HashSet<WemoLightDevice> str2 = WemoBridgeDiscover.str;
+        if(str2 != null){
+            for(WemoLightDevice s: str2){
+                str.add(s.getDeviceId());
             }
         }
-            HashSet<WemoLightDevice> str2 = WemoBridgeDiscover.str;
-            if(str2 != null){
-                for(WemoLightDevice s: str2){
-                    str.add(s.getDeviceId());
-                }
-            }
-
         if (str.size() > 0){
-            intent.putExtra("list", str);
+            ArrayList<String> listOfAllLights = new ArrayList<>();
+            listOfAllLights.addAll(str);
+            intent.putExtra("list", listOfAllLights);
             context.startActivity(intent);
         }
         else{
@@ -115,26 +114,17 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
 
     void receiveResponse(DatagramSocket dsoc) throws IOException {
         byte[] buf = new byte[1024];
-
         try {
             while (true) {
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
-
                 dsoc.receive(packet);
-
-                String lifxHost = ((InetSocketAddress) packet.getSocketAddress())
-                        .getAddress()
-                        .getHostAddress();
-
+                String lifxHost = ((InetSocketAddress) packet.getSocketAddress()).getAddress().getHostAddress();
                 lifXHosts.add(lifxHost);
                 System.err.println(lifxHost);
                 System.err.println(packet.getPort());
-                System.err.println(packet.getData()[32]);
-
                 String p = new String(packet.getData()).trim();
                 System.err.println(p);
             }
-
         }
         catch (SocketTimeoutException e) {
             Log.d(TAG, "Receive timed out");

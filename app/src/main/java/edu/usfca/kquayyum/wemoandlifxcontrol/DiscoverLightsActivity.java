@@ -18,8 +18,6 @@ public class DiscoverLightsActivity extends ListActivity {
         listOfLights = getIntent().getStringArrayListExtra("list");
         int i = 0;
         String[] str = new String[listOfLights.size()];
-        i=0;
-
         if(listOfLights != null) {
             for (String s : listOfLights) {
                 str[i++] = s;

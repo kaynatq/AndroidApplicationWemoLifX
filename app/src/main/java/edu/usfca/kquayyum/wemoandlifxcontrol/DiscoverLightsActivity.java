@@ -23,7 +23,7 @@ public class DiscoverLightsActivity extends ListActivity {
                 str[i++] = s;
             }
         }
-        setListAdapter(new LightbulbArrayAdapter(this, str, R.mipmap.lifx_bulb, Color.rgb(119, 0, 255)));
+        setListAdapter(new LightbulbArrayAdapter(this, str));
     }
 
     @Override

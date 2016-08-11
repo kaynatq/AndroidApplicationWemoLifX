@@ -171,7 +171,7 @@ public class WeMoBridgeDiscover {
      * @throws SAXException
      * @throws ParserConfigurationException
      */
-    //public Map<InetAddress, WeMoBridgeDevice> discover() throws SocketException, UnknownHostException, IOException, SAXException, ParserConfigurationException {
+
     public void discover() throws IOException, SAXException, ParserConfigurationException {
         Collection<InetAddress> ips = getLocalInetAddresses();
         String searchMessage = "M-SEARCH * HTTP/1.1\r\n" +

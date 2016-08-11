@@ -11,7 +11,12 @@ import java.net.InetAddress;
  */
 public class LifXSetColor extends AsyncTask<String, Void, String> {
     private static final int LIFX_PORT = 56700;
-    private String colorString;
+    private String HUE;
+    private static final String SATURATION = "FFFF";
+    private static final String BRIGHTNESS = "FFFF";
+    private static final String KELVIN = "ACOD";
+    private static final String TRANSITION_MILLISECONDS = "00040000";
+    private static final String HEADER = "31000034000000000000000000000000000000000000000000000000000000006600000000";
     private String host;
 
     /**
@@ -36,7 +41,7 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
      */
     public LifXSetColor(String host, String color){
         this.host = host;
-        this.colorString = color;
+        this.HUE = color;
     }
 
     @Override
@@ -47,9 +52,7 @@ public class LifXSetColor extends AsyncTask<String, Void, String> {
         try {
 
             //This is the packet for setting a specific color to the light bulb.
-            String messageString = "31000034000000000000000000000000000000000000000000000000000000006600000000" +
-                    colorString +
-                    "FFFFFFFFAC0D00040000";
+            String messageString = HEADER + HUE + SATURATION + BRIGHTNESS + KELVIN + TRANSITION_MILLISECONDS;
 
             byte[] message = hexStringToByteArray(messageString);
             InetAddress address = InetAddress.getByName(host);

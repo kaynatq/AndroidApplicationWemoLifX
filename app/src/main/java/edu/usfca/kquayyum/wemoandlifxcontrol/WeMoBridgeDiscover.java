@@ -1,7 +1,6 @@
 package edu.usfca.kquayyum.wemoandlifxcontrol;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import org.xml.sax.SAXException;
@@ -19,7 +18,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -30,12 +28,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by kaynat on 8/7/16.
- *
  * Attribution: Some part of the code taken from https://github.com/bitletorg/weupnp
  *
  *
  */
-public class WemoBridgeDiscover {
+public class WeMoBridgeDiscover {
 
     /**
      * The SSDP port
@@ -47,7 +44,7 @@ public class WemoBridgeDiscover {
      * The broadcast address to use when trying to contact UPnP devices
      */
     public static final String IP = "239.255.255.250";
-    public static HashSet<WemoLightDevice> str = new HashSet<>();
+    public static HashSet<WeMoLightDevice> str = new HashSet<>();
 
     /**
      * The default timeout for the initial broadcast request
@@ -67,12 +64,12 @@ public class WemoBridgeDiscover {
     /**
      * Tag for debug logs.
      */
-    private static String DEBUG_TAG = "WemoBridgeDiscover";
-    public WemoBridgeDiscover(Context ctx){
+    private static String DEBUG_TAG = "WeMoBridgeDiscover";
+    public WeMoBridgeDiscover(Context ctx){
      this.ctx = ctx;
     }
 
-    private Set<WemoBridgeDevice> bridges = new HashSet<WemoBridgeDevice>();
+    private Set<WeMoBridgeDevice> bridges = new HashSet<WeMoBridgeDevice>();
 
 
     /*
@@ -100,7 +97,7 @@ public class WemoBridgeDiscover {
                 ssdpDiscoverPacket.setPort(PORT);
 
                 ssdp.send(ssdpDiscoverPacket);
-                ssdp.setSoTimeout(WemoBridgeDiscover.this.timeout);
+                ssdp.setSoTimeout(WeMoBridgeDiscover.this.timeout);
 
                 boolean waitingPacket = true;
                 while (waitingPacket) {
@@ -110,8 +107,8 @@ public class WemoBridgeDiscover {
                         byte[] receivedData = new byte[receivePacket.getLength()];
                         System.arraycopy(receivePacket.getData(), 0, receivedData, 0, receivePacket.getLength());
 
-                        WemoBridgeDevice bridgeDevice =
-                                WemoBridgeDevice.parseMSearchReply(receivedData);
+                        WeMoBridgeDevice bridgeDevice =
+                                WeMoBridgeDevice.parseMSearchReply(receivedData);
 
                         // Only add the device if it is a Wemo Bridge
                         if (bridgeDevice.getUsn().startsWith("uuid:Bridge")) {
@@ -123,15 +120,15 @@ public class WemoBridgeDiscover {
                     }
                 }
 
-                for (WemoBridgeDevice b : bridges) {
+                for (WeMoBridgeDevice b : bridges) {
                     Log.d(DEBUG_TAG, "Getting detailed Bridge information.");
                     b.loadBridgeInfo();
 
                     Log.d(DEBUG_TAG, "Getting Light Information");
-                    List<WemoLightDevice> lightList = b.getLights();
+                    List<WeMoLightDevice> lightList = b.getLights();
 
-                    for (WemoLightDevice l : lightList) {
-                        if (l.getProductName().compareToIgnoreCase(WemoLightDevice.productNameType) == 0) {
+                    for (WeMoLightDevice l : lightList) {
+                        if (l.getProductName().compareToIgnoreCase(WeMoLightDevice.productNameType) == 0) {
                             MainActivity.lights.put(l.getDeviceId(), l);
                             Log.d(DEBUG_TAG, l.toString());
                         }
@@ -142,7 +139,7 @@ public class WemoBridgeDiscover {
                     Iterator it = MainActivity.lights.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry e = (Map.Entry) it.next();
-                        WemoLightDevice l = (WemoLightDevice) e.getValue();
+                        WeMoLightDevice l = (WeMoLightDevice) e.getValue();
                         str.add(l);
                     }
                 }
@@ -174,7 +171,7 @@ public class WemoBridgeDiscover {
      * @throws SAXException
      * @throws ParserConfigurationException
      */
-    //public Map<InetAddress, WemoBridgeDevice> discover() throws SocketException, UnknownHostException, IOException, SAXException, ParserConfigurationException {
+    //public Map<InetAddress, WeMoBridgeDevice> discover() throws SocketException, UnknownHostException, IOException, SAXException, ParserConfigurationException {
     public void discover() throws IOException, SAXException, ParserConfigurationException {
         Collection<InetAddress> ips = getLocalInetAddresses();
         String searchMessage = "M-SEARCH * HTTP/1.1\r\n" +
@@ -228,9 +225,9 @@ public class WemoBridgeDiscover {
 
             try {
                 // skip devices, not suitable to search gateways for
-                if (card.isLoopback() || card.isPointToPoint() ||
-                        card.isVirtual() || !card.isUp())
+                if (card.isLoopback() || card.isPointToPoint() || card.isVirtual() || !card.isUp()) {
                     continue;
+                }
             } catch (SocketException e) {
                 continue;
             }
@@ -242,7 +239,6 @@ public class WemoBridgeDiscover {
 
             while (addresses.hasMoreElements()) {
                 InetAddress inetAddress = addresses.nextElement();
-
                 if (Inet4Address.class.isInstance(inetAddress))
                     arrayIPAddress.add(inetAddress);
             }

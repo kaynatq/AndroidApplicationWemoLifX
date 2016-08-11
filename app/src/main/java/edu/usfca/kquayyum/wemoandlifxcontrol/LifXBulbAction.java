@@ -8,8 +8,18 @@ import android.widget.Button;
 
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
+/**
+ * This activity os lauched if a selected light is LIfX
+ */
 public class LifXBulbAction extends AppCompatActivity {
 
+    /**
+     * method to convert RGB color value to HSV
+     * @param r
+     * @param g
+     * @param b
+     * @return
+     */
     public static double[] RGBtoHSV(double r, double g, double b){
         double h, s, v;
         double min, max, delta;
@@ -39,8 +49,15 @@ public class LifXBulbAction extends AppCompatActivity {
         return new double[]{h,s,v};
     }
 
-    private String convertToLEndian(String str){
+    /**
+     * Since we need to represent the 2 bytes in little endian
+     * @param str
+     * @return
+     */
+    private String convertToLEndian(String str)
+    {
         int i = 4 - str.length();
+
         while(i > 0){
             str = "0" + str;
             i--;
@@ -57,6 +74,10 @@ public class LifXBulbAction extends AppCompatActivity {
         return str;
     }
 
+    /**
+     * The pop up which is shown while we are selecting a color from color picker
+     * @param view
+     */
     public void changeColor(View view){
         final ColorPicker cp = new ColorPicker(LifXBulbAction.this, 0, 0, 0);
         cp.show();
@@ -68,7 +89,7 @@ public class LifXBulbAction extends AppCompatActivity {
                 int selectedColorR = cp.getRed();
                 int selectedColorG = cp.getGreen();
                 int selectedColorB = cp.getBlue();
-                String hue = "", sat = "", bright = "";
+                String hue = "";
                 String colorS = "";
 
                 double[] requiredColor = RGBtoHSV(selectedColorR, selectedColorG, selectedColorB);
@@ -76,8 +97,6 @@ public class LifXBulbAction extends AppCompatActivity {
                 requiredColor[1] = requiredColor[1] / 360 * 65535;
                 requiredColor[2] = requiredColor[2] / 360 * 65535;
                 hue = Integer.toHexString((int)requiredColor[0]);
-                sat = Integer.toHexString((int)requiredColor[1]);
-                bright = Integer.toHexString((int)requiredColor[2]);
                 colorS += convertToLEndian(hue);
                 System.out.println(colorS);
                 LifXSetColor lifXSetColor = new LifXSetColor(getIntent().getStringExtra("ip"), colorS);
@@ -87,11 +106,19 @@ public class LifXBulbAction extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set the bulb on
+     * @param view
+     */
     public void powerOn(View view){
         LifXSetPowerOn lifXSetPowerOn = new LifXSetPowerOn(getIntent().getStringExtra("ip"));
         lifXSetPowerOn.execute();
     }
 
+    /**
+     * Set the bulb off
+     * @param view
+     */
     public void powerOff(View view){
         LifXSetPowerOff lifXSetPowerOff = new LifXSetPowerOff(getIntent().getStringExtra("ip"));
         lifXSetPowerOff.execute();

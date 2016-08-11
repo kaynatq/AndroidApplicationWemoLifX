@@ -3,11 +3,11 @@ package edu.usfca.kquayyum.wemoandlifxcontrol;
 import android.os.AsyncTask;
 
 /**
- * Created by kaynat on 8/8/16.
+ * Class that calls the turn on method over a Light object
  */
 public class WeMoTurnOn extends AsyncTask<String, Void, String> {
-    WemoLightDevice w;
-    public WeMoTurnOn(WemoLightDevice w){
+    WeMoLightDevice w;
+    public WeMoTurnOn(WeMoLightDevice w){
         this.w = w;
     }
     @Override

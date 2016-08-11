@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+/**
+ * Adapter that shows the list of lights in display
+ */
 public class LightbulbArrayAdapter extends ArrayAdapter<String> {
 
     private final Context context;

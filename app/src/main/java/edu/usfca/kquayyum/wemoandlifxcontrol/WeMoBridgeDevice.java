@@ -9,10 +9,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,7 +19,8 @@ import javax.xml.parsers.SAXParser;
 /**
  * Created by kaynat on 8/7/16.
  */
-public class WemoBridgeDevice {
+public class WeMoBridgeDevice {
+
     /**
      * The following are basic information of the bridge device
      * that is parsed from the MSearch discovery reply.
@@ -31,10 +30,6 @@ public class WemoBridgeDevice {
     private String st = "";
     private String usn = "";  // UniversalSerialNumber UDN::upnp:rootdevice
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getUsn() {
         return usn;
     }
@@ -43,10 +38,10 @@ public class WemoBridgeDevice {
      * Parses the reply from UPnP devices
      *
      * @param reply the raw bytes received as a reply
-     * @return the representation of a WemoBridgeDevice. Note that it does not have device details.
+     * @return the representation of a WeMoBridgeDevice. Note that it does not have device details.
      */
-    public static WemoBridgeDevice parseMSearchReply(byte[] reply) {
-        WemoBridgeDevice device = new WemoBridgeDevice();
+    public static WeMoBridgeDevice parseMSearchReply(byte[] reply) {
+        WeMoBridgeDevice device = new WeMoBridgeDevice();
 
         String replyString = new String(reply);
         StringTokenizer st = new StringTokenizer(replyString, "\n");
@@ -91,9 +86,9 @@ public class WemoBridgeDevice {
     private static String SERVICE_TAG = "service";
 
     private class WemoBridgeHandler extends DefaultHandler {
-        private WemoBridgeDevice device;
+        private WeMoBridgeDevice device;
 
-        public WemoBridgeHandler(WemoBridgeDevice device) {
+        public WemoBridgeHandler(WeMoBridgeDevice device) {
             super();
             this.device = device;
         }
@@ -176,10 +171,9 @@ public class WemoBridgeDevice {
     }
 
     /**
-     * Connects to the WemoBridgeDevice {@link #location} and parses the response
+     * Connects to the WeMoBridgeDevice {@link #location} and parses the response
      * using a {@link WemoBridgeHandler} to populate the fields of this
      * class
-     *
      * @throws SAXException if an error occurs while parsing the request
      * @throws IOException  on communication errors
      */
@@ -188,7 +182,7 @@ public class WemoBridgeDevice {
         this.baseUrl = url.getProtocol() + "://" + url.getHost() + ":" + url.getPort();
         System.out.println(this.baseUrl);
 
-        SAXParser saxParser = WemoUpnpUtils.saxFactory.newSAXParser();
+        SAXParser saxParser = WeMoUpnpUtils.saxFactory.newSAXParser();
         XMLReader xmlReader = saxParser.getXMLReader();
 
         WemoBridgeHandler handler = new WemoBridgeHandler(this);
@@ -219,7 +213,7 @@ public class WemoBridgeDevice {
         /**
          * Override handling of start of an element.
          *
-         * @see org.xml.sax.ContentHandler#startElement
+         * Attribution: org.xml.sax.ContentHandler#startElement
          */
         @Override
         public void startElement(String uri, String localName, String qName,
@@ -238,10 +232,8 @@ public class WemoBridgeDevice {
 
         /**
          * Receive notification of character data inside an element.
-         *
          * Stores the characters as value, using {@link #currentElement} as a key
-         *
-         * @see org.xml.sax.ContentHandler#characters
+         * Attribution: org.xml.sax.ContentHandler#characters
          */
         @Override
         public void characters(char[] ch, int start, int length)
@@ -253,26 +245,32 @@ public class WemoBridgeDevice {
         }
     }
 
-
-    public List<WemoLightDevice> getLights() throws IOException, SAXException, ParserConfigurationException {
+    /**
+     * This method returns all the lights that belong to the discovered WeMo bridges
+     * @return
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    public List<WeMoLightDevice> getLights() throws IOException, SAXException, ParserConfigurationException {
         Map<String, String> arguments = new HashMap<>();
         arguments.put("DevUDN", this.udn);
         arguments.put("ReqListType", "PAIRED_LIST");
 
-        SAXParser saxParser = WemoUpnpUtils.saxFactory.newSAXParser();
+        SAXParser saxParser = WeMoUpnpUtils.saxFactory.newSAXParser();
         XMLReader xmlReader = saxParser.getXMLReader();
 
         DeviceListsHandler dlHandler = new DeviceListsHandler();
         xmlReader.setContentHandler(dlHandler);
 
-        WemoUpnpUtils.simpleUPnPCommand(
+        WeMoUpnpUtils.simpleUPnPCommand(
                 xmlReader,
                 this.bridgeControlUrl,
                 this.bridgeServiceType,
                 "GetEndDevices",
                 arguments);
 
-        return WemoLightDevice.parseLightsFromDeviceListString(
+        return WeMoLightDevice.parseLightsFromDeviceListString(
                 this,
                 xmlReader,
                 dlHandler.getDeviceListString());

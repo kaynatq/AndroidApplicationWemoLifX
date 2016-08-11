@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+/**
+ * Activity that launches when no device is found
+ */
 public class NoDeviceFoundActivity extends AppCompatActivity {
 
     @Override

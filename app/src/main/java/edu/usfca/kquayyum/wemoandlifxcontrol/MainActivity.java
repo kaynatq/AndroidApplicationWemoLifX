@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import org.xml.sax.SAXException;
 
@@ -23,7 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class MainActivity extends AppCompatActivity {
     private static final Logger log = Logger.getLogger( MainActivity.class.getName());
-    public static HashMap<String, WemoLightDevice> lights = new HashMap<>();
+    public static HashMap<String, WeMoLightDevice> lights = new HashMap<>();
 
     private WifiManager wifiM;
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 .createMulticastLock("multicastLock");
         multicastLock.acquire();
 
-        WemoBridgeDiscover d = new WemoBridgeDiscover(getApplicationContext());
+        WeMoBridgeDiscover d = new WeMoBridgeDiscover(getApplicationContext());
         try {
             d.discover();
         } catch (IOException e) {

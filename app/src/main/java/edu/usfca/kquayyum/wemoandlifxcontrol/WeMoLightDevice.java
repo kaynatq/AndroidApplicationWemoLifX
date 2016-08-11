@@ -16,16 +16,13 @@ import java.util.Map;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
- * Created by kaynat on 8/7/16.
+ * A WeMo Bulb class with device id, device index, friendly name and the bridge it belongs to
  * Attribution: Concept taken from python API for WeMo (https://github.com/iancmcc/ouimeaux)
  */
-public class WemoLightDevice {
-    private static final String DEBUG_TAG = "WemoLightDevice";
-
-    private WemoBridgeDevice rootDevice;
+public class WeMoLightDevice {
+    private WeMoBridgeDevice rootDevice;
     private String deviceIndex = "";
     private String deviceId = "";
-    private String capabilityValue = "";
     private String friendlyName = "";
 
     public String getProductName() {
@@ -45,7 +42,7 @@ public class WemoLightDevice {
         IN_DEVICE_INFO,
     }
 
-    public WemoLightDevice(WemoBridgeDevice rootDevice) {
+    public WeMoLightDevice(WeMoBridgeDevice rootDevice) {
         this.rootDevice = rootDevice;
     }
 
@@ -63,14 +60,14 @@ public class WemoLightDevice {
 
 
     public static class LightDeviceHandler extends DefaultHandler {
-        private WemoBridgeDevice bridgeDevice = null;
-        private List<WemoLightDevice> lights = null;
+        private WeMoBridgeDevice bridgeDevice = null;
+        private List<WeMoLightDevice> lights = null;
 
-        private WemoLightDevice currentLight = null;
+        private WeMoLightDevice currentLight = null;
         private String currentElement = null;
         private ParseState parseState = ParseState.NONE;
 
-        public LightDeviceHandler(WemoBridgeDevice bridgeDevice, List<WemoLightDevice> lights) {
+        public LightDeviceHandler(WeMoBridgeDevice bridgeDevice, List<WeMoLightDevice> lights) {
             this.bridgeDevice = bridgeDevice;
             this.lights = lights;
         }
@@ -82,15 +79,14 @@ public class WemoLightDevice {
 
         /**
          * Override handling of start of an element.
-         *
-         * @see org.xml.sax.ContentHandler#startElement
+         * Attribution: org.xml.sax.ContentHandler#startElement
          */
         @Override
         public void startElement(String uri, String localName, String qName,
                                  Attributes attributes) throws SAXException {
             currentElement = localName;
             if (currentElement.compareToIgnoreCase(DEVICE_INFO_TAG) == 0) {
-                currentLight = new WemoLightDevice(this.bridgeDevice);
+                currentLight = new WeMoLightDevice(this.bridgeDevice);
                 parseState = ParseState.IN_DEVICE_INFO;
             }
         }
@@ -111,10 +107,8 @@ public class WemoLightDevice {
 
         /**
          * Receive notification of character data inside an element.
-         *
          * Stores the characters as value, using {@link #currentElement} as a key
-         *
-         * @see org.xml.sax.ContentHandler#characters
+         * Attribution: org.xml.sax.ContentHandler#characters
          */
 
         @Override
@@ -133,18 +127,15 @@ public class WemoLightDevice {
                 } else if (currentElement.compareToIgnoreCase("friendlyName") == 0) {
                     currentLight.friendlyName = value;
                 }
-                else if(currentElement.compareToIgnoreCase("capabilityValue") == 0){
-                    currentLight.capabilityValue = value;
-                }
             }
         }
     }
 
-    public static List<WemoLightDevice> parseLightsFromDeviceListString(
-            WemoBridgeDevice bridge,
+    public static List<WeMoLightDevice> parseLightsFromDeviceListString(
+            WeMoBridgeDevice bridge,
             XMLReader parser,
             String deviceListString) throws IOException, SAXException {
-        List<WemoLightDevice> lights = new ArrayList<>();
+        List<WeMoLightDevice> lights = new ArrayList<>();
         LightDeviceHandler handler = new LightDeviceHandler(bridge, lights);
 
         parser.setContentHandler(handler);
@@ -170,7 +161,11 @@ public class WemoLightDevice {
                 String.format(DEVICE_XML_FORMAT, this.deviceId, state, dim));
         args.put("DeviceStatusList", newStatus);
         try {
-            WemoUpnpUtils.simpleUPnPCommand(
+
+            /**
+             * Constructing the xml for device on/off
+             */
+            WeMoUpnpUtils.simpleUPnPCommand(
                     null,
                     this.rootDevice.getBridgeControlUrl(),
                     this.rootDevice.getBridgeServiceType(),

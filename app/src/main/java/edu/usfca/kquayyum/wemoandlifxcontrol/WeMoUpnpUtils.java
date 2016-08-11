@@ -14,9 +14,9 @@ import java.util.Set;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
- * Created by kaynat on 8/7/16.
+ * Util class to construct the SOAP message and send HTTP POST request
  */
-public class WemoUpnpUtils {
+public class WeMoUpnpUtils {
     public static final int DEFAULT_HTTP_RECEIVE_TIMEOUT = 7000;
 
     public static final SAXParserFactory saxFactory = SAXParserFactory.newInstance();

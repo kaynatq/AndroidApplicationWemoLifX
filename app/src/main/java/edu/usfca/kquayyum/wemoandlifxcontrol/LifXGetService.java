@@ -19,10 +19,11 @@ import java.util.HashSet;
 /**
  * send UDP packet to network to discover lifx devices
  */
-
-
 public class LifXGetService extends AsyncTask<String, Void, String> {
     private static final String TAG = "LifXGetService";
+
+    // This is the lifx packet in hexadecimal string format for sending broadcast to all IP's over the network
+    private static final String GET_SERVICE_MESSAGE = "240000347B00000000000000000000000000000000000164000000000000000017000000";
     private static final int LIFX_PORT = 56700;
     private static final int LIFX_WAIT_TIME_MS = 5000;
     private Context context = null;
@@ -67,8 +68,7 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         DatagramSocket dsocket = null;
         try {
             InetAddress bCast = getBroadcastAddress();
-            String messageString = "240000347B00000000000000000000000000000000000164000000000000000017000000";
-            byte[] message = hexStringToByteArray(messageString);
+            byte[] message = hexStringToByteArray(GET_SERVICE_MESSAGE);
 
             dsocket = new DatagramSocket();
             dsocket.setBroadcast(true);
@@ -92,15 +92,16 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         if(lifXHosts.size() > 0) {
             str.addAll(lifXHosts);
         }
-        HashSet<WemoLightDevice> str2 = WemoBridgeDiscover.str;
+        HashSet<WeMoLightDevice> str2 = WeMoBridgeDiscover.str;
         if(str2 != null){
-            for(WemoLightDevice s: str2){
+            for(WeMoLightDevice s: str2){
                 str.add(s.getDeviceId());
             }
         }
         if (str.size() > 0){
             ArrayList<String> listOfAllLights = new ArrayList<>();
             listOfAllLights.addAll(str);
+            intent.putExtra("list", listOfAllLights);
             intent.putExtra("list", listOfAllLights);
             context.startActivity(intent);
         }
@@ -111,7 +112,11 @@ public class LifXGetService extends AsyncTask<String, Void, String> {
         return "send successful";
     }
 
-
+    /**
+     * If a lifX device is present on the network, it sends a response back to the sender with a state message
+     * @param dsoc
+     * @throws IOException
+     */
     void receiveResponse(DatagramSocket dsoc) throws IOException {
         byte[] buf = new byte[1024];
         try {

@@ -21,8 +21,9 @@ If the user wants to discover and control smart lights using this app, at first 
 ## Detailed Workflow for WeMo
 * Discovery for WeMo light starts with the discovery for UPnP devices. The `getLocalInetAddresses()` method finds all the local IP that we have in our network. Then a multicast message is sent to the designated IP and PORT for M-Search message in a separate thread `SendDiscoveryThread`.
 * When we receive a response from network, `parseMSearchReply` method is used to parse the XML data and get the device info. If it is a WeMo bridge, we add it to our Arraylist. We get all the "Lighting" product using the `parseLightsFromDeviceListString` method.
-* Method `simpleUPnPCommand` is used to build a SOAP message and send an HTTP POST request. From this we change the state of a bulb. Tis is the general XML format for changing bulb status:    <?xml version="1.0"?>
-" +
+* Method `simpleUPnPCommand` is used to build a SOAP message and send an HTTP POST request. From this we change the state of a bulb. Tis is the general XML format for changing bulb status:
+
+    <?xml version="1.0"?>" +
                 "<SOAP-ENV:Envelope " +
                 "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
                 "SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">" +

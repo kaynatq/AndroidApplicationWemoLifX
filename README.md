@@ -19,7 +19,7 @@ If the user wants to discover and control smart lights using this app, at first 
 
 
 ## Detailed Workflow for WeMo
-* Discovery for WeMo light starts with the discovery for UPnP devices. The 'getLocalInetAddresses()' method finds all the local IP that we have in our network. Then a multicast message is sent to the designated IP and PORT for M-Search message in a separate thread 'SendDiscoveryThread'
+* Discovery for WeMo light starts with the discovery for UPnP devices. The `getLocalInetAddresses()` method finds all the local IP that we have in our network. Then a multicast message is sent to the designated IP and PORT for M-Search message in a separate thread `SendDiscoveryThread`
 
 
 

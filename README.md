@@ -38,7 +38,7 @@ We just put the device ID and CapabilityValue to this XML.
 Here we have used the LifX LAN protocol. Details for this protocol can be found [here] (https://lan.developer.lifx.com/docs/introduction). We have specific header description and payload message for every request. 
 
 * When a broadcast is sent to the LIFX PORT 56700, if a LifX bulb is there, it responds with a state service message. Then we store the IP of that bulb in our system, and control it using other LAN commands like `SetColor`, `SetPowerOn`, `SetPowerOff` etc.
-* The frame header include size, origin, tagged bit, addressable bit, protocol number and source. For example, our frame header for Power Off the light is: `28 00 00 34 7B`.
+* The frame header include size, origin, tagged bit, addressable bit, protocol number and source. For example, our frame header to Power Off the light is: `28 00 00 34 7B`.
 * The frame address include target, ack_required bit, res_required bit and a sequence number for a unique device.
 * Finally we built the payload message which is only required when we are setting the color. This includes the HSBK information of the power level of the bulb. We have used a color picker library for android, `com.pes.materialcolorpicker:library:1.0.+`, which takes the color as RGB format. We have a method `RGBtoHSV(double r, double g, double b)` that is used for conversion.
 

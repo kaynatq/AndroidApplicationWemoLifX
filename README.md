@@ -23,6 +23,9 @@ If the user wants to discover and control smart lights using this app, at first 
 * When we receive a response from network, `parseMSearchReply` method is used to parse the XML file and get the device info. If it is a WeMo bridge, we add it to our Arraylist. We get all the "Lighting" product using the `parseLightsFromDeviceListString` method.
 * Method `simpleUPnPCommand` is used to build a SOAP message and send an HTTP POST request. From this we change the state of a bulb.
 
+## Protocol for LifX
+
+Here we have used the LifX LAN protocol. Details for this protocol can be found [here] (https://lan.developer.lifx.com/docs/introduction)
 
 
 

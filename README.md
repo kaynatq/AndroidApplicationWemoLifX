@@ -22,14 +22,14 @@ If the user wants to discover and control smart lights using this app, at first 
 * Discovery for WeMo light starts with the discovery for UPnP devices. The `getLocalInetAddresses()` method finds all the local IP that we have in our network. Then a multicast message is sent to the designated IP and PORT for M-Search message in a separate thread `SendDiscoveryThread`.
 * When we receive a response from network, `parseMSearchReply` method is used to parse the XML data and get the device info. If it is a WeMo bridge, we add it to our Arraylist. We get all the "Lighting" product using the `parseLightsFromDeviceListString` method.
 * Method `simpleUPnPCommand` is used to build a SOAP message and send an HTTP POST request. From this we change the state of a bulb. Tis is the general XML format for changing bulb status:
-
+```
     <?xml version="1.0"?>" +
                 "<SOAP-ENV:Envelope " +
                 "xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
                 "SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">" +
                 "<SOAP-ENV:Body>" +
                 "<m:" + action + " xmlns:m=\"" + service + "\">"
-
+```
 ## Protocol for LifX
 
 Here we have used the LifX LAN protocol. Details for this protocol can be found [here] (https://lan.developer.lifx.com/docs/introduction). We have specific header description and payload message for every request. When a broadcast is sent to the LIFX PORT 56700, if a LifX bulb is there, it responds with a state service message. Then we store the IP of that bulb in our system, and control it using other LAN commands like `SetColor`, `SetPowerOn`, `SetPowerOff` etc.

@@ -31,9 +31,14 @@ If the user wants to discover and control smart lights using this app, at first 
           "<CapabilityValue>%s,%s</CapabilityValue>" +
         "</DeviceStatus>
 ```
+We just put the device ID and CapabilityValue to this XML.
+
 ## Protocol for LifX
 
-Here we have used the LifX LAN protocol. Details for this protocol can be found [here] (https://lan.developer.lifx.com/docs/introduction). We have specific header description and payload message for every request. When a broadcast is sent to the LIFX PORT 56700, if a LifX bulb is there, it responds with a state service message. Then we store the IP of that bulb in our system, and control it using other LAN commands like `SetColor`, `SetPowerOn`, `SetPowerOff` etc.
+Here we have used the LifX LAN protocol. Details for this protocol can be found [here] (https://lan.developer.lifx.com/docs/introduction). We have specific header description and payload message for every request. 
+
+* When a broadcast is sent to the LIFX PORT 56700, if a LifX bulb is there, it responds with a state service message. Then we store the IP of that bulb in our system, and control it using other LAN commands like `SetColor`, `SetPowerOn`, `SetPowerOff` etc.
+* The frame header include size, origin, tagged bit, addressable bit, protocol number and source. For example, our frame header for Power Off the light is: `2A0000340000000000000000000000000000000000000000000000000000000075`.
 
 
 

@@ -11,7 +11,8 @@ If the user wants to discover and control smart lights using this app, at first 
 
 
 ## How it works?
-* When the user clicks the "Find Lights" button, a broadcast is sent to the network for available devices. If no device is found, an Intent is launched showing "No device found!". Otherwise, a list of available light bulbs are shown like the screen below:
+* When the user clicks the "Find Lights" button, a broadcast is sent to the network for available devices. A list of available light bulbs are shown. If no device is found, an Intent is launched showing "No device found! like the image below:
+![picture alt](https://photos.google.com/photo/AF1QipOAGZb6Z4TNNF_ZCFtPgU9CqtgwgUzmi-vfEgSy "Title is optional")
 
 * It may happen that all the devices are not discovered in the first attempt. Therefore, we will have to press the back button and try again for discovery.
 

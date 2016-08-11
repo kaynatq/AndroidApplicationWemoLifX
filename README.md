@@ -11,12 +11,15 @@ If the user wants to discover and control smart lights using this app, at first 
 
 
 ## How it works?
-* When the user clicks the "Find Lights" button, a broadcast is sent to the network for available devices. A list of available light bulbs are shown. If no device is found, an Intent is launched showing "No device found! like the image below:
-![picture alt](/home/kaynat/Downloads/Screenshot_20160810-000216.png)
+* When the user clicks the "Find Lights" button, the application starts searching the network for available devices. If no device is found, an Intent is launched showing "No device found!". Otherwise, a list of available light bulbs are shown.
 
 * It may happen that all the devices are not discovered in the first attempt. Therefore, we will have to press the back button and try again for discovery.
 
-* If the connected lights are found on the network, those are displayed on the screen. From the list, we ca choose each of the bulbs and choose what we want to do.
+* If the connected lights are found on the network, those are displayed on the screen. From the list, we can choose what we want to do.
+
+
+## Detailed Workflow for WeMo
+* Discovery for WeMo light starts with the discovery for UPnP devices. The 'getLocalInetAddresses()' method finds all the local IP that we have in our network. Then a multicast message is sent to the designated IP and PORT for M-Search message in a separate thread 'SendDiscoveryThread'
 
 
 

@@ -3,7 +3,7 @@ package edu.usfca.kquayyum.wemoandlifxcontrol;
 import android.os.AsyncTask;
 
 /**
- * Class that do the thurning off for wemo in a separate thread
+ * Class that do the turning off for wemo in a separate thread
  */
 public class WeMoTurnOff extends AsyncTask<String, Void, String> {
     WeMoLightDevice w;
